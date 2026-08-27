@@ -1,0 +1,70 @@
+export const TOPIC_KEYWORDS: Record<string, string[]> = {
+  "DP": ["dynamic programming", "dp ", "memoization", "knapsack", "lcs", "lis", "tabulation"],
+  "Graphs": ["graph", "bfs", "dfs", "dijkstra", "topological sort", "union find", "shortest path", "mst"],
+  "Trees": ["binary tree", "bst", "trie", "segment tree", "avl", "traversal", "lowest common ancestor"],
+  "Arrays & Strings": ["array", "string manipulation", "two pointer", "sliding window", "hashmap", "binary search", "matrix"],
+  "System Design": ["system design", "scalability", "load balancer", "database design", "microservices", "high level design", "low level design", "lld", "hld", "caching", "kafka", "redis", "sharding"],
+  "OOP": ["object oriented", "oop", "design pattern", "singleton", "factory pattern", "solid principles", "inheritance", "polymorphism"],
+  "DBMS": ["sql", "normalization", "joins", "indexing", "acid", "transactions", "nosql", "postgres", "foreign key"],
+  "OS": ["operating system", "deadlock", "process", "thread", "semaphore", "paging", "virtual memory", "mutex", "concurrency"],
+  "CN": ["computer network", "tcp", "udp", "http", "https", "dns", "osi model", "socket", "ip addressing"],
+  "Aptitude": ["quantitative", "logical reasoning", "aptitude test", "puzzle", "probability", "permutation"],
+  "HR": ["tell me about yourself", "hr round", "why should we hire", "strengths and weaknesses", "salary expectation", "relocation"],
+  "Behavioral": ["behavioral", "conflict resolution", "team project", "leadership", "star method", "failure", "culture fit"],
+};
+
+export const TAG_COLORS: Record<string, { bg: string; text: string; border: string; bar: string }> = {
+  "DP": { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", bar: "#a855f7" },
+  "Graphs": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30", bar: "#3b82f6" },
+  "Trees": { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/30", bar: "#10b981" },
+  "Arrays & Strings": { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/30", bar: "#06b6d4" },
+  "System Design": { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", bar: "#f59e0b" },
+  "OOP": { bg: "bg-indigo-500/10", text: "text-indigo-400", border: "border-indigo-500/30", bar: "#6366f1" },
+  "DBMS": { bg: "bg-rose-500/10", text: "text-rose-400", border: "border-rose-500/30", bar: "#f43f5e" },
+  "OS": { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/30", bar: "#0ea5e9" },
+  "CN": { bg: "bg-teal-500/10", text: "text-teal-400", border: "border-teal-500/30", bar: "#14b8a6" },
+  "Aptitude": { bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/30", bar: "#f97316" },
+  "HR": { bg: "bg-pink-500/10", text: "text-pink-400", border: "border-pink-400", bar: "#ec4899" },
+  "Behavioral": { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/30", bar: "#eab308" },
+  "Uncategorized": { bg: "bg-zinc-500/10", text: "text-zinc-400", border: "border-zinc-500/30", bar: "#71717a" },
+};
+
+export const ROUND_TYPE_COLORS: Record<string, string> = {
+  "Online Assessment": "#3b82f6",
+  "Technical": "#a855f7",
+  "System Design": "#f59e0b",
+  "HR": "#ec4899",
+  "Behavioral": "#10b981",
+  "Managerial": "#06b6d4",
+  "Other": "#71717a"
+};
+
+export const POPULAR_COMPANIES = [
+  "Google",
+  "Amazon",
+  "Microsoft",
+  "TCS",
+  "Infosys",
+  "Capgemini",
+  "Wipro",
+  "Cognizant",
+  "Accenture",
+  "Flipkart",
+  "Goldman Sachs",
+  "Walmart Global Tech",
+  "Samsung R&D",
+  "JP Morgan Chase",
+  "Uber",
+  "Meta",
+  "Atlassian",
+  "Adobe",
+  "Oracle",
+  "Salesforce",
+  "Morgan Stanley",
+  "PayPal",
+  "Cisco",
+  "IBM",
+  "Zomato",
+  "Swiggy",
+  "Jio Platforms"
+];
