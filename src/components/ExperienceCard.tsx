@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Experience } from '@/types/database';
 import { ExternalLink, ChevronDown, ChevronUp, Calendar, UserCheck } from 'lucide-react';
 import { TAG_COLORS, ROUND_TYPE_COLORS } from '@/lib/constants';
+import BookmarkButton from './BookmarkButton';
 
 interface ExperienceCardProps {
   experience: Experience;
@@ -50,6 +51,14 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
               <ExternalLink className="w-3 h-3" />
             </a>
           )}
+          <BookmarkButton
+            id={experience.id}
+            type="experience"
+            title={`${experience.role || 'SDE'} Experience (${experience.year || 2024})`}
+            subtitle={`${experience.source_platform || 'GeeksforGeeks'} • ${rounds.length} rounds`}
+            url={experience.source_url || `/companies/${experience.company_id}`}
+            size="sm"
+          />
           <button
             onClick={() => setExpanded(!expanded)}
             className="p-1.5 text-slate-400 hover:text-white rounded-md bg-slate-800/80 transition"

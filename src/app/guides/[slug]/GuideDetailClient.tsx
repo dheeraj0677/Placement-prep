@@ -22,6 +22,10 @@ import {
 import { PrepGuide, PREP_GUIDES } from '@/lib/guidesData';
 import { TAG_COLORS } from '@/lib/constants';
 import ProblemRow from '@/components/ProblemRow';
+import PracticeTimer from '@/components/PracticeTimer';
+import AchievementToast from '@/components/AchievementToast';
+import BookmarkButton from '@/components/BookmarkButton';
+import { recordActivity, getUserStats, checkNewAchievements } from '@/lib/achievements';
 
 interface GuideDetailClientProps {
   guide: PrepGuide;
@@ -49,6 +53,12 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
       const next = isAlready ? prev.filter(id => id !== problemId) : [...prev, problemId];
       try {
         localStorage.setItem(`placement_prep_solved_${guide.slug}`, JSON.stringify(next));
+        if (!isAlready) {
+          recordActivity(1);
+          // Check for achievements
+          const stats = getUserStats();
+          checkNewAchievements(stats);
+        }
       } catch (e) {}
       return next;
     });
@@ -69,9 +79,12 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 relative">
+      <AchievementToast />
+      <PracticeTimer />
+
       {/* Back to Guides Navigation */}
-      <div>
+      <div className="flex items-center justify-between">
         <Link
           href="/guides"
           className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition"
@@ -79,6 +92,16 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to All Prep Guides</span>
         </Link>
+
+        <BookmarkButton
+          id={guide.slug}
+          type="guide"
+          title={guide.title}
+          subtitle={`${guide.problems.length} problems • ~${guide.estimatedHours}h`}
+          url={`/guides/${guide.slug}`}
+          tag={guide.tag}
+          size="md"
+        />
       </div>
 
       {/* Hero Banner Card */}

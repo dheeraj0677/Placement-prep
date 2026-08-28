@@ -19,7 +19,7 @@ export default async function CompaniesPage({
 
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+    const fetchPromise = supabase
       .from('companies')
       .select(`
         id,
@@ -30,6 +30,12 @@ export default async function CompaniesPage({
         experiences:experiences(id)
       `)
       .order('name');
+
+    const timeoutPromise = new Promise<{ data: null; error: any }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: 'timeout' }), 1000)
+    );
+
+    const { data, error } = await Promise.race([fetchPromise, timeoutPromise]);
 
     if (!error && data && data.length > 0) {
       companies = data.map((c: any) => ({

@@ -8,6 +8,7 @@ import TopicBarChart from '@/components/TopicBarChart';
 import RoundTypePieChart from '@/components/RoundTypePieChart';
 import ChecklistButton from '@/components/ChecklistButton';
 import ExperienceCard from '@/components/ExperienceCard';
+import BookmarkButton from '@/components/BookmarkButton';
 import { getMockCompanyTrends, MOCK_COMPANIES } from '@/lib/mockData';
 import { createClient } from '@/lib/supabase/server';
 import { CompanyTrendInsights } from '@/types/database';
@@ -28,14 +29,20 @@ export async function generateMetadata({
 async function getCompanyData(id: string): Promise<CompanyTrendInsights> {
   try {
     const supabase = createClient();
-    const { data: company } = await supabase
+    const companyPromise = supabase
       .from('companies')
       .select('*')
       .eq('id', id)
       .single();
 
+    const timeoutPromise = new Promise<{ data: null; error: any }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: 'timeout' }), 1000)
+    );
+
+    const { data: company } = await Promise.race([companyPromise, timeoutPromise]);
+
     if (company) {
-      const { data: experiences } = await supabase
+      const expPromise = supabase
         .from('experiences')
         .select(`
           id,
@@ -57,6 +64,8 @@ async function getCompanyData(id: string): Promise<CompanyTrendInsights> {
         `)
         .eq('company_id', company.id)
         .order('year', { ascending: false });
+
+      const { data: experiences } = await Promise.race([expPromise, timeoutPromise]);
 
       if (experiences && experiences.length > 0) {
         const tagCounts: Record<string, number> = {};
@@ -166,8 +175,24 @@ export default async function CompanyDetailPage({
           </div>
         </div>
 
-        {/* 1-Click Checklist Generator Action */}
-        <div className="w-full md:w-auto">
+        {/* 1-Click Checklist Generator Action & Bookmark */}
+        <div className="w-full md:w-auto flex flex-wrap items-center gap-3">
+          <BookmarkButton
+            id={company.id}
+            type="company"
+            title={`${company.name} Interview Radar`}
+            subtitle={company.industry || 'Technology'}
+            url={`/companies/${company.id}`}
+            tag={topTags[0]}
+            size="md"
+          />
+          <Link
+            href={`/compare`}
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 text-xs font-semibold border border-slate-700 transition"
+          >
+            <span>Compare</span>
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+          </Link>
           <ChecklistButton
             companyId={company.id}
             companyName={company.name}

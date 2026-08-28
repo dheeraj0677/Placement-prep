@@ -61,7 +61,15 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  try {
+    // Fast timeout so network delay never blocks page loading
+    await Promise.race([
+      supabase.auth.getUser(),
+      new Promise((resolve) => setTimeout(resolve, 800)),
+    ]);
+  } catch (e) {
+    // Fail gracefully without blocking request pipeline
+  }
 
   return response;
 }

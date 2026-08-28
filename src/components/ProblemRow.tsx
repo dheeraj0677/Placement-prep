@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, CheckCircle2, Circle, ChevronDown, ChevronUp, Lightbulb, HelpCircle, Code2 } from 'lucide-react';
 import { GuideProblem } from '@/lib/guidesData';
+import BookmarkButton from './BookmarkButton';
 
 interface ProblemRowProps {
   problem: GuideProblem;
@@ -91,6 +92,15 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
             <span className="hidden xs:inline">{expanded ? 'Hide Insights' : 'Why & Approach'}</span>
             {expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
+
+          <BookmarkButton
+            id={problem.id}
+            type="problem"
+            title={problem.title}
+            subtitle={`${problem.difficulty} • ${problem.platform} (${problem.pattern})`}
+            url={problem.url}
+            size="sm"
+          />
         </div>
       </div>
 
