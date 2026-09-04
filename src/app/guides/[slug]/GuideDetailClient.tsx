@@ -132,7 +132,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
           {/* Quick Metrics Badge on Hero */}
           <div className="flex sm:flex-col gap-3 shrink-0">
             <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center min-w-[110px]">
-              <div className="text-xl font-bold text-blue-400">{guide.problems.length}</div>
+              <div className="text-xl font-bold text-violet-400">{guide.problems.length}</div>
               <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Must-Solve</div>
             </div>
             <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center min-w-[110px]">
@@ -155,7 +155,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
           </div>
           <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5">
             <div
-              className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-400 rounded-full transition-all duration-500"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -165,7 +165,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
       {/* Key Concepts Grid */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+          <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
             <Layers className="w-4 h-4" />
           </div>
           <div>
@@ -185,7 +185,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
               className="glass-card rounded-xl p-4 sm:p-5 border border-slate-800 space-y-2 relative"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-bold text-blue-400 font-mono">
+                <span className="text-xs font-bold text-violet-400 font-mono">
                   Concept #{idx + 1}
                 </span>
                 {concept.badge && (
@@ -303,7 +303,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
       {/* Target Companies That Test This */}
       <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+          <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
             <Building2 className="w-4 h-4" />
           </div>
           <div>
@@ -321,10 +321,10 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
             <Link
               key={comp}
               href={`/companies?search=${encodeURIComponent(comp)}`}
-              className="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-blue-950/40 text-slate-200 hover:text-blue-300 border border-slate-800 hover:border-blue-500/40 text-xs font-semibold transition"
+              className="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-violet-950/40 text-slate-200 hover:text-violet-300 border border-slate-800 hover:border-violet-500/40 text-xs font-semibold transition"
             >
               <span>{comp}</span>
-              <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-blue-400" />
+              <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-violet-400" />
             </Link>
           ))}
         </div>
@@ -338,7 +338,7 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
           </h3>
           <Link
             href="/guides"
-            className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1"
+            className="text-xs font-semibold text-violet-400 hover:text-violet-300 flex items-center gap-1"
           >
             <span>View all guides</span>
             <ArrowRight className="w-3 h-3" />
@@ -353,14 +353,14 @@ export default function GuideDetailClient({ guide }: GuideDetailClientProps) {
               className="glass-card-hover rounded-xl p-4 border border-slate-800 space-y-2 block group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-blue-400">
+                <span className="text-[11px] font-semibold text-violet-400">
                   {rel.tag}
                 </span>
                 <span className="text-[10px] text-slate-500">
                   {rel.problems.length} problems
                 </span>
               </div>
-              <h4 className="text-sm font-bold text-white group-hover:text-blue-300 transition line-clamp-1">
+              <h4 className="text-sm font-bold text-white group-hover:text-violet-300 transition line-clamp-1">
                 {rel.title}
               </h4>
               <p className="text-[11px] text-slate-400 line-clamp-2">

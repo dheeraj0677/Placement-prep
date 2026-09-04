@@ -59,12 +59,12 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
               href={problem.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-sm font-semibold hover:text-blue-400 transition flex items-center gap-1.5 truncate ${
+              className={`text-sm font-semibold hover:text-violet-400 transition flex items-center gap-1.5 truncate ${
                 isSolved ? 'text-slate-400 line-through' : 'text-slate-100'
               }`}
             >
               <span className="truncate">{problem.title}</span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70 hover:opacity-100 text-blue-400" />
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70 hover:opacity-100 text-violet-400" />
             </a>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 font-medium px-2 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 transition shrink-0"
+            className="flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 font-medium px-2 py-1 rounded-lg bg-violet-500/10 border border-violet-500/20 transition shrink-0"
           >
             <Lightbulb className="w-3.5 h-3.5" />
             <span className="hidden xs:inline">{expanded ? 'Hide Insights' : 'Why & Approach'}</span>
@@ -131,7 +131,7 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
               href={problem.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300 underline flex items-center gap-1"
+              className="text-violet-400 hover:text-violet-300 underline flex items-center gap-1"
             >
               Solve on {problem.platform} &rarr;
             </a>

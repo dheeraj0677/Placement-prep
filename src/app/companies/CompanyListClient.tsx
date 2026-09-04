@@ -68,7 +68,7 @@ export default function CompanyListClient({
                 onClick={() => setSelectedIndustry(ind)}
                 className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition ${
                   isSelected
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md shadow-violet-500/20'
                     : 'bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
                 }`}
               >
@@ -87,7 +87,7 @@ export default function CompanyListClient({
         </span>
         {search && (
           <span>
-            Filtering by: &quot;<span className="text-blue-400">{search}</span>&quot;
+            Filtering by: &quot;<span className="text-violet-400">{search}</span>&quot;
           </span>
         )}
       </div>
@@ -115,7 +115,7 @@ export default function CompanyListClient({
               setSearch('');
               setSelectedIndustry('All');
             }}
-            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-md shadow-violet-500/20"
           >
             Reset Filters
           </button>

@@ -45,19 +45,19 @@ export default function GuidesPage() {
   return (
     <div className="relative overflow-hidden">
       {/* Background Decorative Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-purple-600/10 via-blue-600/5 to-transparent blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-48 left-10 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-violet-600/15 via-purple-900/10 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-48 left-10 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10">
         {/* Header Hero */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold shadow-inner">
-            <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold shadow-inner">
+            <BookOpen className="w-3.5 h-3.5 text-violet-400" />
             <span>Curated Placement Preparation Roadmaps</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Topic-Wise <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Placement Guides</span> & Must-Solve Questions
+            Topic-Wise <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent">Placement Guides</span> & Must-Solve Questions
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -68,11 +68,11 @@ export default function GuidesPage() {
         {/* Live Metrics Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
           <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-extrabold text-blue-400">{totalGuides}</div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-violet-400">{totalGuides}</div>
             <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">In-Depth Guides</div>
           </div>
           <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1">
-            <div className="text-2xl sm:text-3xl font-extrabold text-indigo-400">{totalProblems}+</div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-fuchsia-400">{totalProblems}+</div>
             <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Must-Solve Problems</div>
           </div>
           <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1">
@@ -95,7 +95,7 @@ export default function GuidesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search topics (e.g. Dynamic Programming, Graphs, System Design, Google, Amazon)..."
-              className="w-full pl-11 pr-4 py-3 bg-slate-900/80 border border-slate-800 focus:border-blue-500 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none transition shadow-inner"
+              className="w-full pl-11 pr-4 py-3 bg-slate-900/80 border border-slate-800 focus:border-violet-500 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none transition shadow-inner"
             />
             {searchQuery && (
               <button
@@ -117,7 +117,7 @@ export default function GuidesPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
                     isSelected
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 border border-blue-400/40'
+                      ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-500/25 border border-violet-400/40'
                       : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
                   }`}
                 >
@@ -137,7 +137,7 @@ export default function GuidesPage() {
           </div>
         ) : (
           <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-800 max-w-md mx-auto">
-            <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto text-blue-400">
+            <div className="w-12 h-12 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400">
               <BookOpen className="w-6 h-6" />
             </div>
             <div className="space-y-1">
@@ -151,7 +151,7 @@ export default function GuidesPage() {
                 setSelectedCategory('All');
                 setSearchQuery('');
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-md shadow-violet-500/20"
             >
               Reset Filters
             </button>
@@ -171,7 +171,7 @@ export default function GuidesPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/companies"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition shadow-lg shadow-blue-500/20"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-semibold text-xs transition shadow-lg shadow-violet-500/20"
             >
               <Compass className="w-4 h-4" />
               <span>Explore Company Radars</span>
@@ -180,7 +180,7 @@ export default function GuidesPage() {
               href="/checklist"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 transition"
             >
-              <CheckSquare className="w-4 h-4 text-blue-400" />
+              <CheckSquare className="w-4 h-4 text-violet-400" />
               <span>My Prep Checklist</span>
             </Link>
           </div>

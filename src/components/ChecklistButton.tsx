@@ -57,7 +57,7 @@ export default function ChecklistButton({ companyId, companyName, topTags }: Che
         className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition shadow-lg ${
           success
             ? 'bg-emerald-600 text-white shadow-emerald-500/20'
-            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-500/25 active:scale-98'
+            : 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-violet-500/25 active:scale-98'
         } disabled:opacity-75`}
       >
         {loading ? (

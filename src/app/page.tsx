@@ -32,6 +32,8 @@ import CompanyCard from '@/components/CompanyCard';
 import GuideCard from '@/components/GuideCard';
 import { MOCK_COMPANIES } from '@/lib/mockData';
 import { PREP_GUIDES } from '@/lib/guidesData';
+import { CAREER_ROLES } from '@/lib/careerPathsData';
+import RoleCard from '@/components/RoleCard';
 
 export default function HomePage() {
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<'All' | 'Product' | 'Services' | 'Fintech'>('All');
@@ -56,9 +58,9 @@ export default function HomePage() {
   return (
     <div className="relative overflow-hidden">
       {/* Background Decorative Ambient Mesh Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[550px] bg-gradient-to-b from-blue-600/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[550px] bg-gradient-to-b from-violet-600/20 via-purple-900/15 to-transparent blur-3xl pointer-events-none -z-10" />
       <div className="absolute top-40 right-4 sm:right-20 w-80 h-80 bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
-      <div className="absolute top-80 left-4 sm:left-20 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-80 left-4 sm:left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
 
       {/* Hero Section */}
       <section className="pt-12 sm:pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -67,7 +69,7 @@ export default function HomePage() {
           {/* Left Hero Content (7 Cols) */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             {/* Live Ticker Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold shadow-inner backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-emerald-500/10 border border-violet-500/30 text-violet-300 text-xs font-semibold shadow-inner backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-shimmer font-bold">PlacementPrep Radar v2.0</span>
               <span className="text-slate-500">•</span>
@@ -77,7 +79,7 @@ export default function HomePage() {
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1]">
               Stop scrolling endless posts.{' '}
-              <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300 bg-clip-text text-transparent glow-text-blue">
+              <span className="bg-gradient-to-r from-violet-300 via-fuchsia-200 to-emerald-200 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(168,85,247,0.35)]">
                 Target what companies actually test.
               </span>
             </h1>
@@ -96,7 +98,7 @@ export default function HomePage() {
                   <Link
                     key={comp}
                     href={`/companies?search=${encodeURIComponent(comp)}`}
-                    className="px-2.5 py-0.5 rounded-md bg-slate-900/90 hover:bg-blue-600/20 text-slate-300 hover:text-blue-300 border border-slate-800 hover:border-blue-500/40 transition font-medium"
+                    className="px-2.5 py-0.5 rounded-md bg-slate-900/90 hover:bg-violet-600/20 text-slate-300 hover:text-violet-300 border border-slate-800 hover:border-violet-500/40 transition font-medium"
                   >
                     {comp}
                   </Link>
@@ -107,27 +109,38 @@ export default function HomePage() {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
               <Link
-                href="/companies"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm transition shadow-lg shadow-blue-500/30 active:scale-95 border border-blue-400/30"
+                href="/career-paths"
+                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold text-sm transition shadow-lg shadow-violet-500/25 active:scale-95 border border-violet-400/30"
               >
-                <Compass className="w-4 h-4" />
-                <span>Explore Company Radars</span>
+                <Compass className="w-4 h-4 text-violet-200" />
+                <span>Career Compass</span>
+                <span className="px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider rounded bg-white/20 text-white">
+                  Workshop
+                </span>
               </Link>
               
               <Link
-                href="/compare"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-indigo-600/15 hover:bg-indigo-600/25 text-indigo-300 hover:text-white font-semibold text-sm border border-indigo-500/30 transition shadow-md shadow-indigo-500/10 active:scale-95 backdrop-blur-md"
+                href="/companies"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700/80 transition active:scale-95"
               >
-                <GitCompare className="w-4 h-4 text-indigo-400" />
-                <span>Compare Companies</span>
+                <Building2 className="w-4 h-4 text-violet-400" />
+                <span>Company Radars</span>
               </Link>
 
               <Link
-                href="/dashboard"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700/80 transition active:scale-95"
+                href="/skills"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-300 hover:text-white font-semibold text-sm border border-emerald-500/30 transition shadow-md shadow-emerald-500/10 active:scale-95 backdrop-blur-md"
               >
-                <BarChart3 className="w-4 h-4 text-emerald-400" />
-                <span>My Dashboard</span>
+                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <span>Skill Matrix</span>
+              </Link>
+
+              <Link
+                href="/compare"
+                className="flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold text-sm border border-slate-800 transition active:scale-95"
+              >
+                <GitCompare className="w-4 h-4 text-purple-400" />
+                <span>Compare</span>
               </Link>
             </div>
           </div>
@@ -136,17 +149,17 @@ export default function HomePage() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-72 h-72 sm:w-88 sm:h-88 max-w-full flex items-center justify-center">
               {/* Outer Radar Rings */}
-              <div className="absolute inset-0 rounded-full border border-blue-500/20 animate-pulse-glow" />
-              <div className="absolute inset-6 rounded-full border border-indigo-500/25" />
-              <div className="absolute inset-14 rounded-full border border-cyan-500/20" />
+              <div className="absolute inset-0 rounded-full border border-violet-500/25 animate-pulse-glow" />
+              <div className="absolute inset-6 rounded-full border border-purple-500/25" />
+              <div className="absolute inset-14 rounded-full border border-emerald-500/20" />
               <div className="absolute inset-24 rounded-full border border-slate-700/50" />
               
               {/* Crosshair lines */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
               </div>
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="h-full w-px bg-gradient-to-b from-transparent via-blue-500/30 to-transparent" />
+                <div className="h-full w-px bg-gradient-to-b from-transparent via-violet-500/30 to-transparent" />
               </div>
 
               {/* Rotating Radar Sweep Cone */}
@@ -154,13 +167,13 @@ export default function HomePage() {
                 <div
                   className="w-full h-full animate-radar origin-center"
                   style={{
-                    background: 'conic-gradient(from 0deg, transparent 0deg, transparent 270deg, rgba(59, 130, 246, 0.4) 360deg)',
+                    background: 'conic-gradient(from 0deg, transparent 0deg, transparent 270deg, rgba(168, 85, 247, 0.4) 360deg)',
                   }}
                 />
               </div>
 
               {/* Central Glowing Radar Core */}
-              <div className="relative z-10 w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 border border-blue-400/50 flex items-center justify-center text-white shadow-xl shadow-blue-500/40 animate-pulse">
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 border border-violet-400/50 flex items-center justify-center text-white shadow-xl shadow-violet-500/40 animate-pulse">
                 <Radar className="w-8 h-8 text-white" />
               </div>
 
@@ -170,8 +183,8 @@ export default function HomePage() {
                 title="Google Radar (High DP / Graphs)"
                 className="absolute top-10 right-10 z-20 group"
               >
-                <div className="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-blue-500/50 text-[11px] font-bold text-blue-300 shadow-lg shadow-blue-500/20 flex items-center gap-1 group-hover:scale-110 transition">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping" />
+                <div className="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-violet-500/50 text-[11px] font-bold text-violet-300 shadow-lg shadow-violet-500/20 flex items-center gap-1 group-hover:scale-110 transition">
+                  <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping" />
                   <span>Google</span>
                 </div>
               </Link>
@@ -214,8 +227,8 @@ export default function HomePage() {
 
         {/* Live Metrics Row */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          <div className="glass-card rounded-2xl p-5 text-center space-y-1 hover:border-blue-500/40 transition">
-            <div className="text-3xl sm:text-4xl font-extrabold text-blue-400 font-mono">
+          <div className="glass-card rounded-2xl p-5 text-center space-y-1 hover:border-violet-500/40 transition">
+            <div className="text-3xl sm:text-4xl font-extrabold text-violet-400 font-mono">
               {MOCK_COMPANIES.length}+
             </div>
             <div className="text-xs text-slate-300 font-semibold uppercase tracking-wider">
@@ -224,8 +237,8 @@ export default function HomePage() {
             <p className="text-[11px] text-slate-500">FAANG, Unicorns & Services</p>
           </div>
 
-          <div className="glass-card rounded-2xl p-5 text-center space-y-1 hover:border-indigo-500/40 transition">
-            <div className="text-3xl sm:text-4xl font-extrabold text-indigo-400 font-mono">
+          <div className="glass-card rounded-2xl p-5 text-center space-y-1 hover:border-fuchsia-500/40 transition">
+            <div className="text-3xl sm:text-4xl font-extrabold text-fuchsia-400 font-mono">
               100+
             </div>
             <div className="text-xs text-slate-300 font-semibold uppercase tracking-wider">
@@ -260,7 +273,7 @@ export default function HomePage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-bold text-violet-400 uppercase tracking-wider">
               <Radar className="w-4 h-4 animate-spin-slow" />
               <span>Target Analysis</span>
             </div>
@@ -280,7 +293,7 @@ export default function HomePage() {
                 onClick={() => setActiveCategoryFilter(cat)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition ${
                   activeCategoryFilter === cat
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
+                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md shadow-violet-500/25'
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
@@ -304,8 +317,67 @@ export default function HomePage() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 text-xs font-bold transition shadow-sm"
           >
             <span>Explore All {MOCK_COMPANIES.length}+ Company Radars</span>
-            <ArrowRight className="w-4 h-4 text-blue-400" />
+            <ArrowRight className="w-4 h-4 text-violet-400" />
           </Link>
+        </div>
+      </section>
+
+      {/* Career Compass Event Workshop Showcase Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-emerald-500/10 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider">
+              <Compass className="w-3.5 h-3.5 text-violet-400" />
+              <span>Workshop Showcase</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-300">Career Compass</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              Explore Career Paths, Roles & Skills
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl">
+              Break down the exact technical (SDE, Data, AI, Cloud, Cyber) and non-technical (PM, Consulting, Analytics, Sales) roles companies hire for on-campus and off-campus.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/career-paths"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-violet-400 hover:text-violet-300 transition"
+            >
+              <span>Explore all 15 role blueprints</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Featured Roles Grid (3 Featured Profiles) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {CAREER_ROLES.slice(0, 3).map((role) => (
+            <RoleCard key={role.slug} role={role} />
+          ))}
+        </div>
+
+        {/* Career Compass Sub-Banner with Direct Skill Gap Analyzer Link */}
+        <div className="rounded-2xl p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-violet-950/40 to-slate-900 border border-violet-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="text-xs font-bold text-violet-300 flex items-center justify-center sm:justify-start gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+              <span>Not sure which path fits your current skill set?</span>
+            </div>
+            <p className="text-xs text-slate-400">
+              Check off your languages and tools to calculate your readiness match for all 15 career paths in real-time.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/skills"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white text-xs font-bold transition shadow-md shadow-violet-500/20 active:scale-95"
+            >
+              Open Skill Gap Analyzer →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -346,7 +418,7 @@ export default function HomePage() {
       <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800 relative overflow-hidden space-y-8">
           <div className="max-w-3xl space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold">
               <Cpu className="w-3.5 h-3.5" />
               <span>Modern Engineering Stack</span>
             </div>
@@ -360,13 +432,13 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Box 1 */}
-            <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hover:border-blue-500/40 transition">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hover:border-violet-500/40 transition">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
                 <Terminal className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-white">1. Python Ingestion Pipeline</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Asynchronous <code className="text-blue-300 font-mono">httpx</code> scraper parsing GeeksforGeeks and LeetCode Discuss posts into discrete rounds (OA, Technical, System Design, HR).
+                Asynchronous <code className="text-violet-300 font-mono">httpx</code> scraper parsing GeeksforGeeks and LeetCode Discuss posts into discrete rounds (OA, Technical, System Design, HR).
               </p>
             </div>
 

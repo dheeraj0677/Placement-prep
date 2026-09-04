@@ -43,7 +43,7 @@ export default function AchievementBadge({ achievement, isUnlocked }: Achievemen
   const IconComponent = ICON_MAP[achievement.icon] || Star;
 
   const categoryColors = {
-    Solving: 'from-blue-500/20 to-indigo-500/20 text-blue-400 border-blue-500/30',
+    Solving: 'from-violet-500/20 to-purple-500/20 text-violet-400 border-violet-500/30',
     Mastery: 'from-purple-500/20 to-pink-500/20 text-purple-400 border-purple-500/30',
     Consistency: 'from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30',
     Exploration: 'from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30',
@@ -53,13 +53,13 @@ export default function AchievementBadge({ achievement, isUnlocked }: Achievemen
     <div
       className={`rounded-2xl p-4 sm:p-5 border transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
         isUnlocked
-          ? 'glass-card border-slate-700/80 hover:border-blue-500/40 hover:scale-[1.02] shadow-lg'
+          ? 'glass-card border-slate-700/80 hover:border-violet-500/40 hover:scale-[1.02] shadow-lg'
           : 'bg-slate-950/40 border-slate-900/80 opacity-60 grayscale'
       }`}
     >
       {/* Glow on unlocked */}
       {isUnlocked && (
-        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-blue-500/15 via-transparent to-transparent rounded-bl-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-violet-500/15 via-transparent to-transparent rounded-bl-full pointer-events-none" />
       )}
 
       <div className="space-y-3">

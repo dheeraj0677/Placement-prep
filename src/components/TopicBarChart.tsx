@@ -29,7 +29,7 @@ export default function TopicBarChart({ data }: TopicBarChartProps) {
   // Top 8 topics for clean visualization
   const chartData = data.slice(0, 8).map(d => ({
     ...d,
-    fillColor: TAG_COLORS[d.tag]?.bar || '#3b82f6',
+    fillColor: TAG_COLORS[d.tag]?.bar || '#8b5cf6',
   }));
 
   const CustomTooltip = ({ active, payload }: any) => {
@@ -45,7 +45,7 @@ export default function TopicBarChart({ data }: TopicBarChartProps) {
             {item.tag}
           </div>
           <div className="text-slate-300">
-            Frequency: <span className="font-semibold text-blue-400">{item.count}</span> mentions
+            Frequency: <span className="font-semibold text-violet-400">{item.count}</span> mentions
           </div>
           <div className="text-slate-400">
             Share: <span className="font-semibold text-emerald-400">{item.percentage}%</span> of interview rounds

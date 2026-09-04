@@ -213,7 +213,7 @@ export default function ChecklistPage() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-3">
-        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm text-slate-400">Loading your preparation checklist...</p>
       </div>
     );
@@ -224,12 +224,12 @@ export default function ChecklistPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold">
             <CheckSquare className="w-3.5 h-3.5" />
             <span>Target Tracker</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Personalized <span className="text-blue-400">Prep Checklist</span>
+            Personalized <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Prep Checklist</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-400">
             Track your mastery across the highest-frequency topics tested by your target companies.
@@ -240,7 +240,7 @@ export default function ChecklistPage() {
           href="/companies"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-xs font-semibold transition"
         >
-          <Plus className="w-3.5 h-3.5 text-blue-400" />
+          <Plus className="w-3.5 h-3.5 text-violet-400" />
           <span>Add More Companies</span>
         </Link>
       </div>
@@ -260,7 +260,7 @@ export default function ChecklistPage() {
         {/* Bar */}
         <div className="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-400 rounded-full transition-all duration-500"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -309,7 +309,7 @@ export default function ChecklistPage() {
                         <span>{companyName}</span>
                         <Link
                           href={`/companies/${companyId}`}
-                          className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-0.5 font-normal"
+                          className="text-xs text-violet-400 hover:text-violet-300 flex items-center gap-0.5 font-normal"
                         >
                           <span>Radar</span>
                           <ExternalLink className="w-3 h-3" />
@@ -350,7 +350,7 @@ export default function ChecklistPage() {
                             {item.is_done ? (
                               <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-500/20" />
                             ) : (
-                              <Circle className="w-5 h-5 text-slate-500 group-hover:text-blue-400" />
+                              <Circle className="w-5 h-5 text-slate-500 group-hover:text-violet-400" />
                             )}
                           </button>
 
@@ -398,7 +398,7 @@ export default function ChecklistPage() {
                       }
                     }}
                     placeholder={`Add custom topic for ${companyName} (e.g. Trie, Concurrency)...`}
-                    className="flex-1 px-3 py-1.5 bg-slate-950/60 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    className="flex-1 px-3 py-1.5 bg-slate-950/60 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500"
                   />
                   <button
                     onClick={() => handleAddCustomTag(companyId, companyName)}
@@ -413,7 +413,7 @@ export default function ChecklistPage() {
         </div>
       ) : (
         <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-800">
-          <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto text-blue-400">
+          <div className="w-12 h-12 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400">
             <CheckSquare className="w-6 h-6" />
           </div>
           <div className="space-y-1">
@@ -424,7 +424,7 @@ export default function ChecklistPage() {
           </div>
           <Link
             href="/companies"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition shadow-lg shadow-blue-500/20"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-lg shadow-violet-500/20"
           >
             <span>Explore Companies</span>
             <ArrowRight className="w-3.5 h-3.5" />

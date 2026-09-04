@@ -15,7 +15,7 @@ export const TOPIC_KEYWORDS: Record<string, string[]> = {
 
 export const TAG_COLORS: Record<string, { bg: string; text: string; border: string; bar: string }> = {
   "DP": { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", bar: "#a855f7" },
-  "Graphs": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30", bar: "#3b82f6" },
+  "Graphs": { bg: "bg-violet-500/10", text: "text-violet-400", border: "border-violet-500/30", bar: "#8b5cf6" },
   "Trees": { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/30", bar: "#10b981" },
   "Arrays & Strings": { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/30", bar: "#06b6d4" },
   "System Design": { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", bar: "#f59e0b" },
@@ -30,7 +30,7 @@ export const TAG_COLORS: Record<string, { bg: string; text: string; border: stri
 };
 
 export const ROUND_TYPE_COLORS: Record<string, string> = {
-  "Online Assessment": "#3b82f6",
+  "Online Assessment": "#8b5cf6",
   "Technical": "#a855f7",
   "System Design": "#f59e0b",
   "HR": "#ec4899",

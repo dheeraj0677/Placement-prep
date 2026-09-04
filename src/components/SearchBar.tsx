@@ -51,7 +51,7 @@ export default function SearchBar({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full pl-11 pr-10 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition shadow-inner backdrop-blur-md"
+          className="w-full pl-11 pr-10 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition shadow-inner backdrop-blur-md"
         />
         {query && (
           <button

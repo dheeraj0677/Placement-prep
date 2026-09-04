@@ -56,7 +56,7 @@ export default function GuideCard({ guide }: GuideCardProps) {
 
   const categoryBadges = {
     'DSA': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    'CS Fundamentals': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    'CS Fundamentals': 'bg-violet-500/10 text-violet-400 border-violet-500/20',
     'System Design': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     'Soft Skills': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   };
@@ -64,7 +64,7 @@ export default function GuideCard({ guide }: GuideCardProps) {
   return (
     <div className="glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full group border border-slate-800 relative overflow-hidden transition-all duration-300">
       {/* Glow background on hover */}
-      <div className="absolute top-0 right-0 w-36 h-36 bg-blue-600/5 group-hover:bg-blue-600/15 rounded-full blur-2xl pointer-events-none transition duration-500" />
+      <div className="absolute top-0 right-0 w-36 h-36 bg-violet-600/5 group-hover:bg-violet-600/15 rounded-full blur-2xl pointer-events-none transition duration-500" />
 
       <div className="space-y-4">
         {/* Top Badges Header */}
@@ -95,11 +95,11 @@ export default function GuideCard({ guide }: GuideCardProps) {
             <IconComponent className="w-6 h-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-blue-300 transition line-clamp-1">
+            <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 transition line-clamp-1">
               {guide.title}
             </h3>
-            <span className="inline-flex items-center gap-1 text-[11px] text-blue-400 font-semibold">
-              <Sparkles className="w-3 h-3 text-blue-400" />
+            <span className="inline-flex items-center gap-1 text-[11px] text-violet-400 font-semibold">
+              <Sparkles className="w-3 h-3 text-violet-400" />
               {guide.importanceWeight}
             </span>
           </div>
@@ -113,7 +113,7 @@ export default function GuideCard({ guide }: GuideCardProps) {
         {/* Stats Row */}
         <div className="grid grid-cols-2 gap-2 py-2 px-3 rounded-xl bg-slate-900/80 border border-slate-800/80 text-xs">
           <div className="flex items-center gap-2 text-slate-300">
-            <Target className="w-3.5 h-3.5 text-blue-400" />
+            <Target className="w-3.5 h-3.5 text-emerald-400" />
             <span><strong className="text-white font-bold">{guide.problems.length}</strong> Questions</span>
           </div>
           <div className="flex items-center gap-2 text-slate-300">
@@ -153,7 +153,7 @@ export default function GuideCard({ guide }: GuideCardProps) {
         </span>
         <Link
           href={`/guides/${guide.slug}`}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 group-hover:text-blue-300 transition"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-400 group-hover:text-violet-300 transition"
         >
           <span>Open Guide & Practice</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition duration-200" />

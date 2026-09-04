@@ -160,12 +160,12 @@ export default async function CompanyDetailPage({
             {company.name.charAt(0)}
           </div>
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-medium">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20 text-xs font-medium">
               <Building2 className="w-3 h-3" />
               <span>{company.industry || 'Technology'}</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold text-white">
-              {company.name} <span className="text-blue-400">Interview Radar</span>
+              {company.name} <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Interview Radar</span>
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 flex items-center gap-2 pt-1">
               <span>{totalExperiences} verified experience posts</span>
@@ -230,7 +230,7 @@ export default async function CompanyDetailPage({
         <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
                 <PieIcon className="w-4 h-4" />
               </div>
               <div>

@@ -50,10 +50,10 @@ export default function ReadinessRadar({ data }: ReadinessRadarProps) {
           <Radar
             name="Preparedness Level"
             dataKey="A"
-            stroke="#3b82f6"
-            fill="#3b82f6"
+            stroke="#8b5cf6"
+            fill="#8b5cf6"
             fillOpacity={0.45}
-            dot={{ r: 3, fill: '#60a5fa', stroke: '#1d4ed8' }}
+            dot={{ r: 3, fill: '#a78bfa', stroke: '#6d28d9' }}
           />
         </RadarChart>
       </ResponsiveContainer>

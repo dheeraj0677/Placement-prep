@@ -45,7 +45,7 @@ export default function RoundTypePieChart({ data }: RoundTypePieChartProps) {
             {item.name}
           </div>
           <div className="text-slate-300">
-            Total Rounds: <span className="font-semibold text-blue-400">{item.value}</span>
+            Total Rounds: <span className="font-semibold text-violet-400">{item.value}</span>
           </div>
           <div className="text-slate-400">
             Percentage: <span className="font-semibold text-emerald-400">{item.percentage}%</span>

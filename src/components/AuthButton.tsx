@@ -69,13 +69,13 @@ export default function AuthButton() {
       <div className="flex items-center gap-3">
         <Link
           href="/checklist"
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 text-xs font-medium transition"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 text-xs font-medium transition"
         >
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>My Checklist</span>
         </Link>
         <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-blue-500/30">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-purple-600 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-violet-500/30">
             {user.email ? user.email.charAt(0).toUpperCase() : <UserIcon className="w-4 h-4" />}
           </div>
           <button
@@ -94,7 +94,7 @@ export default function AuthButton() {
     <div className="flex items-center gap-2">
       <Link
         href="/login"
-        className="flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg text-xs font-medium transition shadow-lg shadow-blue-500/20"
+        className="flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white rounded-lg text-xs font-medium transition shadow-lg shadow-violet-500/20"
       >
         <LogIn className="w-3.5 h-3.5" />
         <span>Sign In</span>

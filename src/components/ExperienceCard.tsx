@@ -19,7 +19,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
       {/* Header */}
       <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/60 border-b border-slate-800/80">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 font-semibold text-sm">
+          <div className="w-9 h-9 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 font-semibold text-sm">
             <UserCheck className="w-4 h-4" />
           </div>
           <div>
@@ -45,7 +45,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
               href={experience.source_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 transition"
+              className="flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 transition"
             >
               <span>Original Post</span>
               <ExternalLink className="w-3 h-3" />

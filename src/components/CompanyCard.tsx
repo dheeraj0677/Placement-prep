@@ -16,11 +16,11 @@ export default function CompanyCard({ company }: CompanyCardProps) {
 
   // Dynamic avatar gradient colors based on company name letter
   const avatarGradients = [
-    'from-blue-600 to-indigo-600 border-blue-400/40 text-white',
-    'from-indigo-600 to-purple-600 border-indigo-400/40 text-white',
-    'from-purple-600 to-pink-600 border-purple-400/40 text-white',
-    'from-cyan-600 to-blue-600 border-cyan-400/40 text-white',
+    'from-violet-600 to-purple-600 border-violet-400/40 text-white',
+    'from-purple-600 to-fuchsia-600 border-purple-400/40 text-white',
     'from-emerald-600 to-teal-600 border-emerald-400/40 text-white',
+    'from-amber-600 to-orange-600 border-amber-400/40 text-white',
+    'from-indigo-600 to-violet-600 border-indigo-400/40 text-white',
   ];
   const charCode = company.name.charCodeAt(0) || 0;
   const gradientClass = avatarGradients[charCode % avatarGradients.length];
@@ -31,7 +31,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       className="group glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden"
     >
       {/* Decorative gradient corner glow */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-blue-500/25 transition duration-500" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-500/15 via-purple-500/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-violet-500/25 transition duration-500" />
 
       <div>
         {/* Header: Company Name, Industry & Badges */}
@@ -41,7 +41,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
               {company.name.charAt(0)}
             </div>
             <div className="space-y-0.5">
-              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-blue-300 transition line-clamp-1">
+              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 transition line-clamp-1">
                 {company.name}
               </h3>
               <p className="text-xs text-slate-400 flex items-center gap-1">
@@ -52,7 +52,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/20">
               <Layers className="w-3 h-3" />
               {company.experience_count || 1} {company.experience_count === 1 ? 'post' : 'posts'}
             </span>
@@ -72,7 +72,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
         {/* Top Topic Tags */}
         <div className="mt-4 space-y-2">
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-blue-400" />
+            <Sparkles className="w-3 h-3 text-violet-400" />
             <span>High-Frequency Topics</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -92,7 +92,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       </div>
 
       {/* Footer CTA */}
-      <div className="mt-6 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-blue-400 transition">
+      <div className="mt-6 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-violet-400 transition">
         <span>View Live Trend Radar</span>
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition duration-200" />
       </div>

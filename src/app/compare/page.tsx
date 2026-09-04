@@ -170,13 +170,13 @@ export default function CompanyComparePage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold shadow-inner">
-          <GitCompare className="w-3.5 h-3.5 text-blue-400" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold shadow-inner">
+          <GitCompare className="w-3.5 h-3.5 text-violet-400" />
           <span>Cross-Company Trend Analysis</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          Side-by-Side <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Company Radar Comparison</span>
+          Side-by-Side <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent">Company Radar Comparison</span>
         </h1>
 
         <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -195,9 +195,9 @@ export default function CompanyComparePage() {
             <button
               key={preset.title}
               onClick={() => setSelectedCompanyIds(preset.ids)}
-              className="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/40 text-left transition group space-y-1 shadow-sm"
+              className="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-violet-500/40 text-left transition group space-y-1 shadow-sm"
             >
-              <div className="text-xs font-bold text-white group-hover:text-blue-300 transition">
+              <div className="text-xs font-bold text-white group-hover:text-violet-300 transition">
                 {preset.title}
               </div>
               <div className="text-[11px] text-slate-400 truncate">
@@ -226,7 +226,7 @@ export default function CompanyComparePage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search companies..."
-              className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500"
             />
           </div>
         </div>
@@ -236,9 +236,9 @@ export default function CompanyComparePage() {
           {selectedTrends.map((trend) => (
             <div
               key={trend.company.id}
-              className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-blue-600/15 border border-blue-500/30 text-white shadow-sm"
+              className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-violet-600/15 border border-violet-500/30 text-white shadow-sm"
             >
-              <div className="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-xs font-bold">
+              <div className="w-6 h-6 rounded-lg bg-violet-600 flex items-center justify-center text-xs font-bold">
                 {trend.company.name.charAt(0)}
               </div>
               <span className="text-xs font-bold">{trend.company.name}</span>
@@ -264,7 +264,7 @@ export default function CompanyComparePage() {
                   onClick={() => toggleCompany(c.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5 border ${
                     isSelected
-                      ? 'bg-blue-600 text-white border-blue-400/50 shadow-sm'
+                      ? 'bg-violet-600 text-white border-violet-400/50 shadow-sm'
                       : 'bg-slate-900/90 text-slate-400 hover:text-white hover:bg-slate-800 border-slate-800'
                   }`}
                 >
@@ -321,7 +321,7 @@ export default function CompanyComparePage() {
         <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 flex flex-col justify-between space-y-4 bg-gradient-to-br from-indigo-950/20 to-slate-900/60">
           <div className="space-y-2">
             <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-              <CheckSquare className="w-4 h-4 text-blue-400" />
+              <CheckSquare className="w-4 h-4 text-violet-400" />
               Unified Multi-Target Preparation Plan
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -333,14 +333,14 @@ export default function CompanyComparePage() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={handleGenerateMergedChecklist}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shadow-lg shadow-blue-500/25 active:scale-98"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-xs transition shadow-lg shadow-violet-500/25 active:scale-98"
             >
               <Plus className="w-4 h-4" />
               {addedSuccess ? '✓ Added to Checklist!' : 'Merge into My Checklist'}
             </button>
             <Link
               href="/checklist"
-              className="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1"
+              className="text-xs text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-1"
             >
               <span>View Checklist</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -389,7 +389,7 @@ export default function CompanyComparePage() {
 
                   <Link
                     href={`/companies/${trend.company.id}`}
-                    className="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-0.5"
+                    className="text-xs text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-0.5"
                   >
                     <span>Full Radar</span>
                     <ArrowRight className="w-3 h-3" />

@@ -21,7 +21,7 @@ export default function ChartWrapper({ children, height = 300 }: ChartWrapperPro
         style={{ height }}
       >
         <div className="flex flex-col items-center gap-2 text-slate-500 text-sm">
-          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
           <span>Loading radar visualization...</span>
         </div>
       </div>

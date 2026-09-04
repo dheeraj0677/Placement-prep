@@ -141,11 +141,11 @@ export default function PracticeTimer() {
           onClick={() => setIsOpen(true)}
           className={`group flex items-center gap-2.5 px-4 py-2.5 rounded-full backdrop-blur-xl border shadow-xl transition duration-300 active:scale-95 ${
             isRunning
-              ? 'bg-blue-600/90 text-white border-blue-400/50 shadow-blue-500/30 animate-pulse'
+              ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white border-violet-400/50 shadow-violet-500/30 animate-pulse'
               : 'bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border-slate-700/80'
           }`}
         >
-          <Clock className={`w-4 h-4 ${isRunning ? 'animate-spin' : 'text-blue-400'}`} style={{ animationDuration: '4s' }} />
+          <Clock className={`w-4 h-4 ${isRunning ? 'animate-spin' : 'text-violet-400'}`} style={{ animationDuration: '4s' }} />
           <span className="text-xs font-bold font-mono">
             {isRunning
               ? (mode === 'countdown' ? formatTime(secondsLeft) : formatTime(stopwatchSeconds))
@@ -163,7 +163,7 @@ export default function PracticeTimer() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
               <Timer className="w-4 h-4" />
             </div>
             <span className="text-sm font-bold text-white">DSA Practice Timer</span>
@@ -194,7 +194,7 @@ export default function PracticeTimer() {
               setMode('countdown');
             }}
             className={`py-1.5 rounded-lg transition ${
-              mode === 'countdown' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              mode === 'countdown' ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-violet-500/25' : 'text-slate-400 hover:text-white'
             }`}
           >
             Countdown
@@ -205,7 +205,7 @@ export default function PracticeTimer() {
               setMode('stopwatch');
             }}
             className={`py-1.5 rounded-lg transition ${
-              mode === 'stopwatch' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              mode === 'stopwatch' ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-violet-500/25' : 'text-slate-400 hover:text-white'
             }`}
           >
             Stopwatch
@@ -253,7 +253,7 @@ export default function PracticeTimer() {
           {/* Progress bar background in countdown mode */}
           {mode === 'countdown' && (
             <div
-              className="absolute left-0 bottom-0 top-0 bg-blue-600/10 transition-all duration-1000 -z-0 pointer-events-none"
+              className="absolute left-0 bottom-0 top-0 bg-violet-600/15 transition-all duration-1000 -z-0 pointer-events-none"
               style={{ width: `${progress}%` }}
             />
           )}
@@ -292,7 +292,7 @@ export default function PracticeTimer() {
             className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-xs transition shadow-lg active:scale-98 ${
               isRunning
                 ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-500/20'
-                : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/25'
+                : 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-violet-500/25'
             }`}
           >
             {isRunning ? (

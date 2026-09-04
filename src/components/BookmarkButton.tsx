@@ -121,7 +121,7 @@ export default function BookmarkButton({
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="e.g. Remember to handle negative subarray sums with hash map prefix logic..."
             rows={3}
-            className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+            className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 resize-none"
             autoFocus
           />
 
@@ -138,7 +138,7 @@ export default function BookmarkButton({
               <button
                 type="button"
                 onClick={handleSaveNote}
-                className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-md flex items-center gap-1 shadow-sm"
+                className="px-2.5 py-1 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-md flex items-center gap-1 shadow-sm"
               >
                 <Check className="w-3 h-3" />
                 Save
