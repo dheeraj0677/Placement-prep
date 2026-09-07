@@ -57,14 +57,14 @@ export default async function CompaniesPage({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
       {/* Page Header */}
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold">
           <Compass className="w-3.5 h-3.5" />
           <span>Company Database</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Explore Company <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Trend Radars</span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Explore Company <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">Trend Radars</span>
         </h1>
-        <p className="text-sm text-slate-400 max-w-2xl">
+        <p className="text-sm text-slate-600 max-w-2xl">
           Select any company to view its topic breakdown, round distributions, year-over-year shifts, and generate a customized prep checklist.
         </p>
       </div>

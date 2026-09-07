@@ -26,34 +26,35 @@ export default function ReadinessRadar({ data }: ReadinessRadarProps) {
     <div className="w-full h-full min-h-[300px] flex items-center justify-center">
       <ResponsiveContainer width="100%" height={320}>
         <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
-          <PolarGrid stroke="#334155" strokeDasharray="3 3" />
+          <PolarGrid stroke="#e2e8f0" strokeDasharray="3 3" />
           <PolarAngleAxis
             dataKey="subject"
-            tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 600 }}
+            tick={{ fill: '#475569', fontSize: 11, fontWeight: 600 }}
           />
           <PolarRadiusAxis
             angle={30}
             domain={[0, 100]}
-            tick={{ fill: '#64748b', fontSize: 10 }}
-            axisLine={{ stroke: '#334155' }}
+            tick={{ fill: '#94a3b8', fontSize: 10 }}
+            axisLine={{ stroke: '#e2e8f0' }}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#0f172a',
-              borderColor: '#334155',
+              backgroundColor: '#ffffff',
+              borderColor: '#e2e8f0',
               borderRadius: '8px',
-              color: '#f8fafc',
+              color: '#0f172a',
               fontSize: '12px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
             }}
             formatter={(value: any) => [`${value}% Mastery`, 'Preparedness']}
           />
           <Radar
             name="Preparedness Level"
             dataKey="A"
-            stroke="#8b5cf6"
+            stroke="#7c3aed"
             fill="#8b5cf6"
-            fillOpacity={0.45}
-            dot={{ r: 3, fill: '#a78bfa', stroke: '#6d28d9' }}
+            fillOpacity={0.35}
+            dot={{ r: 3, fill: '#7c3aed', stroke: '#ffffff' }}
           />
         </RadarChart>
       </ResponsiveContainer>

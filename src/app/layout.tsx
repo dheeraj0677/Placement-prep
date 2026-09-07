@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen bg-[#07080d] text-slate-100 flex flex-col antialiased selection:bg-violet-500/30 selection:text-violet-200">
+    <html lang="en">
+      <body className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col antialiased selection:bg-violet-500/20 selection:text-violet-900">
         <Navbar />
         <main className="flex-1 w-full">{children}</main>
         <Footer />

@@ -16,22 +16,22 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
   const [expanded, setExpanded] = useState(false);
 
   const difficultyColors = {
-    Easy: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-    Medium: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
-    Hard: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+    Easy: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    Medium: 'bg-amber-50 text-amber-700 border-amber-200',
+    Hard: 'bg-rose-50 text-rose-700 border-rose-200',
   };
 
   const platformBadges = {
-    LeetCode: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
-    GeeksforGeeks: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20',
+    LeetCode: 'bg-amber-50 text-amber-800 border-amber-200',
+    GeeksforGeeks: 'bg-emerald-50 text-emerald-800 border-emerald-200',
   };
 
   return (
     <div
       className={`rounded-xl border transition-all duration-200 ${
         isSolved
-          ? 'bg-emerald-950/20 border-emerald-500/30'
-          : 'bg-slate-900/60 hover:bg-slate-800/60 border-slate-800/80'
+          ? 'bg-emerald-50/70 border-emerald-300'
+          : 'bg-white hover:bg-slate-50/80 border-slate-200 shadow-sm'
       }`}
     >
       <div className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -40,17 +40,17 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
           <button
             type="button"
             onClick={() => onToggleSolved(problem.id)}
-            className="mt-0.5 sm:mt-0 text-slate-400 hover:text-emerald-400 transition shrink-0"
+            className="mt-0.5 sm:mt-0 text-slate-400 hover:text-emerald-600 transition shrink-0"
             aria-label={isSolved ? 'Mark as unsolved' : 'Mark as solved'}
           >
             {isSolved ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-500/20" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100" />
             ) : (
-              <Circle className="w-5 h-5 text-slate-500 hover:text-emerald-400" />
+              <Circle className="w-5 h-5 text-slate-400 hover:text-emerald-600" />
             )}
           </button>
 
-          <span className="text-xs font-mono text-slate-500 shrink-0">
+          <span className="text-xs font-mono text-slate-400 shrink-0">
             #{String(index + 1).padStart(2, '0')}
           </span>
 
@@ -59,12 +59,12 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
               href={problem.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-sm font-semibold hover:text-violet-400 transition flex items-center gap-1.5 truncate ${
-                isSolved ? 'text-slate-400 line-through' : 'text-slate-100'
+              className={`text-sm font-semibold hover:text-violet-600 transition flex items-center gap-1.5 truncate ${
+                isSolved ? 'text-slate-400 line-through' : 'text-slate-900'
               }`}
             >
               <span className="truncate">{problem.title}</span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70 hover:opacity-100 text-violet-400" />
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70 hover:opacity-100 text-violet-600" />
             </a>
           </div>
         </div>
@@ -79,14 +79,14 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
             {problem.platform}
           </span>
 
-          <span className="hidden md:inline-block text-[11px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 max-w-[180px] truncate">
+          <span className="hidden md:inline-block text-[11px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 max-w-[180px] truncate font-medium">
             {problem.pattern}
           </span>
 
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 font-medium px-2 py-1 rounded-lg bg-violet-500/10 border border-violet-500/20 transition shrink-0"
+            className="flex items-center gap-1 text-xs text-violet-700 hover:text-violet-800 font-medium px-2.5 py-1 rounded-lg bg-violet-50 border border-violet-200 transition shrink-0"
           >
             <Lightbulb className="w-3.5 h-3.5" />
             <span className="hidden xs:inline">{expanded ? 'Hide Insights' : 'Why & Approach'}</span>
@@ -106,32 +106,32 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
 
       {/* Expandable Interview Note Drawer */}
       {expanded && (
-        <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-slate-950/40 rounded-b-xl space-y-2.5 text-xs">
-          <div className="flex items-start gap-2 text-slate-300">
-            <HelpCircle className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+        <div className="px-4 pb-4 pt-2 border-t border-slate-200 bg-slate-50/80 rounded-b-xl space-y-2.5 text-xs">
+          <div className="flex items-start gap-2 text-slate-700">
+            <HelpCircle className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold text-indigo-300">Why Interviewers Ask This: </span>
-              <span className="text-slate-300">{problem.whyAsked}</span>
+              <span className="font-semibold text-indigo-700">Why Interviewers Ask This: </span>
+              <span className="text-slate-600">{problem.whyAsked}</span>
             </div>
           </div>
 
-          <div className="flex items-start gap-2 text-slate-300">
-            <Code2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 text-slate-700">
+            <Code2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold text-emerald-300">Key Pattern & Takeaway: </span>
-              <span className="text-slate-300 font-mono text-[11px] bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800">
+              <span className="font-semibold text-emerald-700">Key Pattern & Takeaway: </span>
+              <span className="text-slate-800 font-mono text-[11px] bg-white px-1.5 py-0.5 rounded border border-slate-200">
                 {problem.keyTakeaway}
               </span>
             </div>
           </div>
 
-          <div className="pt-1 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Pattern Technique: <strong className="text-slate-200">{problem.pattern}</strong></span>
+          <div className="pt-1 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Pattern Technique: <strong className="text-slate-800">{problem.pattern}</strong></span>
             <a
               href={problem.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-violet-400 hover:text-violet-300 underline flex items-center gap-1"
+              className="text-violet-600 hover:text-violet-800 underline flex items-center gap-1 font-medium"
             >
               Solve on {problem.platform} &rarr;
             </a>

@@ -36,19 +36,19 @@ export default function RoundTypePieChart({ data }: RoundTypePieChartProps) {
     if (active && payload && payload.length) {
       const item = payload[0].payload;
       return (
-        <div className="bg-slate-900 border border-slate-700/80 p-2.5 rounded-lg shadow-xl text-xs space-y-1">
-          <div className="font-semibold text-white flex items-center gap-2">
+        <div className="bg-white border border-slate-200 p-2.5 rounded-xl shadow-xl text-xs space-y-1">
+          <div className="font-semibold text-slate-900 flex items-center gap-2">
             <span
               className="w-2.5 h-2.5 rounded-full inline-block"
               style={{ backgroundColor: item.color }}
             />
             {item.name}
           </div>
-          <div className="text-slate-300">
-            Total Rounds: <span className="font-semibold text-violet-400">{item.value}</span>
+          <div className="text-slate-600">
+            Total Rounds: <span className="font-semibold text-violet-700">{item.value}</span>
           </div>
-          <div className="text-slate-400">
-            Percentage: <span className="font-semibold text-emerald-400">{item.percentage}%</span>
+          <div className="text-slate-500">
+            Percentage: <span className="font-semibold text-emerald-700">{item.percentage}%</span>
           </div>
         </div>
       );
@@ -73,7 +73,7 @@ export default function RoundTypePieChart({ data }: RoundTypePieChartProps) {
               <Cell
                 key={`cell-${index}`}
                 fill={entry.color}
-                stroke="#0f172a"
+                stroke="#ffffff"
                 strokeWidth={2}
               />
             ))}
@@ -83,7 +83,7 @@ export default function RoundTypePieChart({ data }: RoundTypePieChartProps) {
             verticalAlign="bottom"
             height={36}
             iconType="circle"
-            formatter={(value) => <span className="text-xs text-slate-300 ml-1">{value}</span>}
+            formatter={(value) => <span className="text-xs text-slate-700 ml-1 font-medium">{value}</span>}
           />
         </PieChart>
       </ResponsiveContainer>

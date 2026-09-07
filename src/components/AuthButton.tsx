@@ -60,7 +60,7 @@ export default function AuthButton() {
 
   if (loading) {
     return (
-      <div className="w-24 h-9 bg-slate-800 rounded-lg animate-pulse" />
+      <div className="w-24 h-9 bg-slate-200 rounded-lg animate-pulse" />
     );
   }
 
@@ -69,19 +69,19 @@ export default function AuthButton() {
       <div className="flex items-center gap-3">
         <Link
           href="/checklist"
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 text-xs font-medium transition"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-50 border border-violet-200 text-violet-700 hover:bg-violet-100 text-xs font-medium transition"
         >
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>My Checklist</span>
         </Link>
-        <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-purple-600 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-violet-500/30">
+        <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-purple-600 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-violet-500/20">
             {user.email ? user.email.charAt(0).toUpperCase() : <UserIcon className="w-4 h-4" />}
           </div>
           <button
             onClick={handleSignOut}
             title="Sign out"
-            className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-800/80 rounded-lg transition"
+            className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 rounded-lg transition"
           >
             <LogOut className="w-4 h-4" />
           </button>

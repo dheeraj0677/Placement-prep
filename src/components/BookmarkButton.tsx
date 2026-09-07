@@ -68,12 +68,12 @@ export default function BookmarkButton({
           isSmall ? 'p-1' : 'p-1.5'
         } ${
           bookmarked
-            ? 'text-pink-400 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30'
-            : 'text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800 border border-slate-700/60'
+            ? 'text-pink-600 bg-pink-50 hover:bg-pink-100 border border-pink-200'
+            : 'text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200'
         }`}
       >
         {bookmarked ? (
-          <BookmarkCheck className={isSmall ? 'w-3.5 h-3.5 fill-pink-400' : 'w-4 h-4 fill-pink-400'} />
+          <BookmarkCheck className={isSmall ? 'w-3.5 h-3.5 fill-pink-600' : 'w-4 h-4 fill-pink-600'} />
         ) : (
           <Bookmark className={isSmall ? 'w-3.5 h-3.5' : 'w-4 h-4'} />
         )}
@@ -89,8 +89,8 @@ export default function BookmarkButton({
             isSmall ? 'p-1' : 'p-1.5'
           } ${
             existingNote
-              ? 'text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30'
-              : 'text-slate-400 hover:text-amber-300 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/50'
+              ? 'text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200'
+              : 'text-slate-500 hover:text-amber-600 bg-slate-100 hover:bg-slate-200 border border-slate-200'
           }`}
         >
           <FileText className={isSmall ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
@@ -100,17 +100,17 @@ export default function BookmarkButton({
       {/* Note modal/popover */}
       {isNoteOpen && (
         <div
-          className="absolute right-0 top-full mt-2 w-72 p-3 bg-slate-950/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 space-y-2 text-left"
+          className="absolute right-0 top-full mt-2 w-72 p-3 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-xl shadow-xl z-50 space-y-2 text-left"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between text-xs font-semibold text-white">
-            <span className="flex items-center gap-1.5 text-amber-400">
+          <div className="flex items-center justify-between text-xs font-semibold text-slate-900">
+            <span className="flex items-center gap-1.5 text-amber-600">
               <FileText className="w-3.5 h-3.5" />
               Personal Note
             </span>
             <button
               onClick={() => setIsNoteOpen(false)}
-              className="text-slate-400 hover:text-white p-0.5"
+              className="text-slate-400 hover:text-slate-700 p-0.5"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -121,7 +121,7 @@ export default function BookmarkButton({
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="e.g. Remember to handle negative subarray sums with hash map prefix logic..."
             rows={3}
-            className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 resize-none"
+            className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 resize-none"
             autoFocus
           />
 
@@ -131,14 +131,14 @@ export default function BookmarkButton({
               <button
                 type="button"
                 onClick={() => setIsNoteOpen(false)}
-                className="px-2 py-1 text-slate-400 hover:text-white rounded"
+                className="px-2 py-1 text-slate-500 hover:text-slate-800 rounded"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveNote}
-                className="px-2.5 py-1 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-md flex items-center gap-1 shadow-sm"
+                className="px-2.5 py-1 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-md flex items-center gap-1 shadow-sm"
               >
                 <Check className="w-3 h-3" />
                 Save

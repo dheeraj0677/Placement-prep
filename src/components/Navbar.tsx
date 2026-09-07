@@ -43,12 +43,12 @@ export default function Navbar() {
               <div className="absolute inset-0 rounded-xl bg-violet-400/20 animate-ping opacity-60 pointer-events-none" style={{ animationDuration: '3s' }} />
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-base sm:text-lg tracking-tight text-white flex items-center gap-1.5">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
                 <span>PlacementPrep</span>
-                <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent">Radar</span>
+                <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">Radar</span>
               </span>
-              <span className="text-[10px] text-slate-400 -mt-0.5 tracking-wider uppercase flex items-center gap-1 font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+              <span className="text-[10px] text-slate-500 -mt-0.5 tracking-wider uppercase flex items-center gap-1 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
                 Live Trend Engine
               </span>
             </div>
@@ -65,11 +65,11 @@ export default function Navbar() {
                   href={link.href}
                   className={`relative flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition duration-200 ${
                     isActive
-                      ? 'bg-violet-600/15 text-violet-200 border border-violet-500/30 shadow-sm shadow-violet-500/15'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-850/80 border border-transparent'
+                      ? 'bg-violet-50 text-violet-700 border border-violet-200 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-violet-400' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-violet-600' : 'text-slate-400'}`} />
                   <span>{link.name}</span>
                   {link.badge && (
                     <span className="ml-0.5 px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider rounded-md bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm">
@@ -87,7 +87,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 lg:hidden text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl border border-slate-800 transition"
+              className="p-2 lg:hidden text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl border border-slate-200 transition"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -98,7 +98,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-800 bg-slate-950/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-2 animate-bounce-in shadow-2xl">
+        <div className="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-2 animate-bounce-in shadow-xl">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -109,12 +109,12 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition ${
                   isActive
-                    ? 'bg-violet-600/20 text-violet-200 border border-violet-500/30 shadow-md'
-                    : 'text-slate-300 hover:bg-slate-900 border border-transparent'
+                    ? 'bg-violet-50 text-violet-700 border border-violet-200 shadow-sm'
+                    : 'text-slate-700 hover:bg-slate-50 border border-transparent'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-violet-400" />
+                  <Icon className="w-4 h-4 text-violet-600" />
                   <span>{link.name}</span>
                 </div>
                 {link.badge && (

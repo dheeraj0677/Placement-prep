@@ -213,8 +213,8 @@ export default function ChecklistPage() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-3">
-        <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-slate-400">Loading your preparation checklist...</p>
+        <div className="w-8 h-8 border-2 border-violet-600 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-sm text-slate-500 font-medium">Loading your preparation checklist...</p>
       </div>
     );
   }
@@ -224,43 +224,43 @@ export default function ChecklistPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold">
-            <CheckSquare className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold">
+            <CheckSquare className="w-3.5 h-3.5 text-violet-600" />
             <span>Target Tracker</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Personalized <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Prep Checklist</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Personalized <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">Prep Checklist</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-600">
             Track your mastery across the highest-frequency topics tested by your target companies.
           </p>
         </div>
 
         <Link
           href="/companies"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-xs font-semibold transition"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition shadow-sm"
         >
-          <Plus className="w-3.5 h-3.5 text-violet-400" />
+          <Plus className="w-3.5 h-3.5 text-violet-600" />
           <span>Add More Companies</span>
         </Link>
       </div>
 
       {/* Progress Bar Card */}
-      <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-3">
+      <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-200 bg-white shadow-sm space-y-3">
         <div className="flex items-center justify-between text-xs sm:text-sm">
-          <span className="font-semibold text-slate-200 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span className="font-semibold text-slate-800 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-emerald-600" />
             Overall Preparation Progress
           </span>
-          <span className="font-bold text-emerald-400">
+          <span className="font-bold text-emerald-600">
             {completedItems} of {totalItems} completed ({completionPercentage}%)
           </span>
         </div>
 
         {/* Bar */}
-        <div className="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5">
+        <div className="w-full h-3 bg-slate-100 border border-slate-200 rounded-full overflow-hidden p-0.5">
           <div
-            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-400 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-500 rounded-full transition-all duration-500"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -268,16 +268,16 @@ export default function ChecklistPage() {
 
       {/* Guest Mode Notice */}
       {!user && (
-        <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2.5 text-indigo-300">
-            <ShieldCheck className="w-4 h-4 text-indigo-400 shrink-0" />
+        <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2.5 text-indigo-900">
+            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0" />
             <span>
               Your checklist is saved in local browser storage. Sign in with Google to sync across all your devices via Supabase.
             </span>
           </div>
           <Link
             href="/login"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium whitespace-nowrap transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium whitespace-nowrap transition shadow-sm"
           >
             <LogIn className="w-3.5 h-3.5" />
             <span>Sign In to Sync</span>
@@ -296,32 +296,32 @@ export default function ChecklistPage() {
             return (
               <div
                 key={companyId}
-                className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-4"
+                className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-200 bg-white shadow-sm space-y-4"
               >
                 {/* Company Group Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-white text-sm shadow-inner">
+                    <div className="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-800 text-sm shadow-sm">
                       {companyName.charAt(0)}
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-white flex items-center gap-2">
+                      <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                         <span>{companyName}</span>
                         <Link
                           href={`/companies/${companyId}`}
-                          className="text-xs text-violet-400 hover:text-violet-300 flex items-center gap-0.5 font-normal"
+                          className="text-xs text-violet-600 hover:text-violet-800 flex items-center gap-0.5 font-semibold"
                         >
                           <span>Radar</span>
                           <ExternalLink className="w-3 h-3" />
                         </Link>
                       </h3>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-500">
                         {compDone}/{compTotal} topics ready ({compPct}%)
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 self-start sm:self-auto">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 self-start sm:self-auto">
                     {compPct === 100 ? '🎉 Ready for Interview' : `${100 - compPct}% remaining`}
                   </span>
                 </div>
@@ -337,27 +337,27 @@ export default function ChecklistPage() {
                         onClick={() => handleToggleDone(item)}
                         className={`group flex items-center justify-between p-3 rounded-xl border transition cursor-pointer select-none ${
                           item.is_done
-                            ? 'bg-emerald-950/20 border-emerald-500/30'
-                            : 'bg-slate-900/60 hover:bg-slate-800/60 border-slate-800/80'
+                            ? 'bg-emerald-50/70 border-emerald-200'
+                            : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200'
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <button
                             type="button"
-                            className="text-slate-400 group-hover:text-white transition"
+                            className="text-slate-400 group-hover:text-slate-800 transition"
                             aria-label={item.is_done ? 'Mark incomplete' : 'Mark complete'}
                           >
                             {item.is_done ? (
-                              <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-500/20" />
+                              <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100" />
                             ) : (
-                              <Circle className="w-5 h-5 text-slate-500 group-hover:text-violet-400" />
+                              <Circle className="w-5 h-5 text-slate-400 group-hover:text-violet-600" />
                             )}
                           </button>
 
                           <div className="flex items-center gap-2">
                             <span
                               className={`text-xs sm:text-sm font-medium ${
-                                item.is_done ? 'text-slate-400 line-through' : 'text-slate-200'
+                                item.is_done ? 'text-slate-400 line-through' : 'text-slate-800'
                               }`}
                             >
                               Master {item.tag}
@@ -376,7 +376,7 @@ export default function ChecklistPage() {
                             e.stopPropagation();
                             handleDeleteItem(item.id);
                           }}
-                          className="opacity-0 group-hover:opacity-100 p-1 text-slate-500 hover:text-red-400 transition"
+                          className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-rose-600 transition"
                           title="Remove item"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -398,11 +398,11 @@ export default function ChecklistPage() {
                       }
                     }}
                     placeholder={`Add custom topic for ${companyName} (e.g. Trie, Concurrency)...`}
-                    className="flex-1 px-3 py-1.5 bg-slate-950/60 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500"
+                    className="flex-1 px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 shadow-sm"
                   />
                   <button
                     onClick={() => handleAddCustomTag(companyId, companyName)}
-                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg transition"
+                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold rounded-lg transition"
                   >
                     Add
                   </button>
@@ -412,19 +412,19 @@ export default function ChecklistPage() {
           })}
         </div>
       ) : (
-        <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-800">
-          <div className="w-12 h-12 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400">
+        <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-200 bg-white shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-violet-50 flex items-center justify-center mx-auto text-violet-600">
             <CheckSquare className="w-6 h-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-white">Your checklist is empty</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+            <h3 className="text-lg font-bold text-slate-900">Your checklist is empty</h3>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
               Visit any company page and click &quot;Generate My Prep Checklist&quot; to automatically pull their top 5 tested topics.
             </p>
           </div>
           <Link
             href="/companies"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-lg shadow-violet-500/20"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-md shadow-violet-500/20"
           >
             <span>Explore Companies</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -17,7 +17,7 @@ export default function ChartWrapper({ children, height = 300 }: ChartWrapperPro
   if (!isMounted) {
     return (
       <div
-        className="w-full flex items-center justify-center bg-slate-900/40 rounded-xl border border-slate-800 animate-pulse"
+        className="w-full flex items-center justify-center bg-slate-100/70 rounded-xl border border-slate-200 animate-pulse"
         style={{ height }}
       >
         <div className="flex flex-col items-center gap-2 text-slate-500 text-sm">

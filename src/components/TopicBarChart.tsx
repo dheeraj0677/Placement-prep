@@ -36,19 +36,19 @@ export default function TopicBarChart({ data }: TopicBarChartProps) {
     if (active && payload && payload.length) {
       const item = payload[0].payload;
       return (
-        <div className="bg-slate-900 border border-slate-700/80 p-3 rounded-lg shadow-xl text-xs space-y-1 backdrop-blur-md">
-          <div className="font-semibold text-white flex items-center gap-2">
+        <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-xl text-xs space-y-1">
+          <div className="font-semibold text-slate-900 flex items-center gap-2">
             <span
               className="w-2.5 h-2.5 rounded-full inline-block"
               style={{ backgroundColor: item.fillColor }}
             />
             {item.tag}
           </div>
-          <div className="text-slate-300">
-            Frequency: <span className="font-semibold text-violet-400">{item.count}</span> mentions
+          <div className="text-slate-600">
+            Frequency: <span className="font-semibold text-violet-700">{item.count}</span> mentions
           </div>
-          <div className="text-slate-400">
-            Share: <span className="font-semibold text-emerald-400">{item.percentage}%</span> of interview rounds
+          <div className="text-slate-500">
+            Share: <span className="font-semibold text-emerald-700">{item.percentage}%</span> of interview rounds
           </div>
         </div>
       );
@@ -68,20 +68,20 @@ export default function TopicBarChart({ data }: TopicBarChartProps) {
             type="number"
             domain={[0, 'dataMax + 5']}
             tickFormatter={(val) => `${val}%`}
-            stroke="#64748b"
+            stroke="#94a3b8"
             fontSize={11}
             tickLine={false}
           />
           <YAxis
             type="category"
             dataKey="tag"
-            stroke="#94a3b8"
+            stroke="#334155"
             fontSize={12}
             tickLine={false}
             axisLine={false}
             width={110}
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255, 255, 255, 0.04)' }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0, 0, 0, 0.03)' }} />
           <Bar
             dataKey="percentage"
             radius={[0, 6, 6, 0]}

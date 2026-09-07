@@ -31,28 +31,28 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       className="group glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden"
     >
       {/* Decorative gradient corner glow */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-500/15 via-purple-500/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-violet-500/25 transition duration-500" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-500/10 via-purple-500/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-violet-500/20 transition duration-500" />
 
       <div>
         {/* Header: Company Name, Industry & Badges */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${gradientClass} border flex items-center justify-center font-black text-lg shadow-lg group-hover:scale-105 transition duration-300`}>
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${gradientClass} border flex items-center justify-center font-black text-lg shadow-md group-hover:scale-105 transition duration-300`}>
               {company.name.charAt(0)}
             </div>
             <div className="space-y-0.5">
-              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 transition line-clamp-1">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-violet-700 transition line-clamp-1">
                 {company.name}
               </h3>
-              <p className="text-xs text-slate-400 flex items-center gap-1">
-                <Building2 className="w-3.5 h-3.5 text-slate-500" />
+              <p className="text-xs text-slate-500 flex items-center gap-1">
+                <Building2 className="w-3.5 h-3.5 text-slate-400" />
                 <span className="truncate max-w-[140px]">{company.industry || 'Technology'}</span>
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/20">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-violet-50 text-violet-700 border border-violet-200">
               <Layers className="w-3 h-3" />
               {company.experience_count || 1} {company.experience_count === 1 ? 'post' : 'posts'}
             </span>
@@ -71,8 +71,8 @@ export default function CompanyCard({ company }: CompanyCardProps) {
 
         {/* Top Topic Tags */}
         <div className="mt-4 space-y-2">
-          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-violet-400" />
+          <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-violet-600" />
             <span>High-Frequency Topics</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -92,7 +92,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
       </div>
 
       {/* Footer CTA */}
-      <div className="mt-6 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-violet-400 transition">
+      <div className="mt-6 pt-3.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-violet-600 transition">
         <span>View Live Trend Radar</span>
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition duration-200" />
       </div>

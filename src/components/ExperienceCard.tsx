@@ -15,24 +15,24 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
   const rounds = experience.rounds || [];
 
   return (
-    <div className="glass-card rounded-xl border border-slate-800 overflow-hidden transition">
+    <div className="glass-card rounded-xl border border-slate-200 overflow-hidden transition">
       {/* Header */}
-      <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/60 border-b border-slate-800/80">
+      <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-b border-slate-200">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 font-semibold text-sm">
+          <div className="w-9 h-9 rounded-lg bg-violet-50 border border-violet-200 flex items-center justify-center text-violet-600 font-semibold text-sm">
             <UserCheck className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-sm sm:text-base font-bold text-white">
+            <h4 className="text-sm sm:text-base font-bold text-slate-900">
               {experience.role || 'Software Development Engineer'}
             </h4>
-            <div className="flex items-center gap-2 text-xs text-slate-400 mt-0.5">
+            <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
               <span className="flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-slate-500" />
+                <Calendar className="w-3 h-3 text-slate-400" />
                 {experience.year || 2024}
               </span>
               <span>•</span>
-              <span className="text-slate-400">
+              <span className="text-slate-500">
                 {experience.source_platform || 'GeeksforGeeks'}
               </span>
             </div>
@@ -45,7 +45,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
               href={experience.source_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 transition"
+              className="flex items-center gap-1 text-xs text-violet-700 hover:text-violet-800 px-2.5 py-1 rounded-md bg-violet-50 border border-violet-200 transition font-medium"
             >
               <span>Original Post</span>
               <ExternalLink className="w-3 h-3" />
@@ -61,7 +61,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
           />
           <button
             onClick={() => setExpanded(!expanded)}
-            className="p-1.5 text-slate-400 hover:text-white rounded-md bg-slate-800/80 transition"
+            className="p-1.5 text-slate-600 hover:text-slate-900 rounded-md bg-slate-100 border border-slate-200 transition"
             aria-label="Toggle rounds"
           >
             {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -71,7 +71,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
       {/* Rounds List */}
       {expanded && (
-        <div className="p-4 sm:p-5 space-y-4 bg-slate-950/40">
+        <div className="p-4 sm:p-5 space-y-4 bg-white">
           {rounds.map((round) => {
             const rType = round.round_type || 'Technical';
             const color = ROUND_TYPE_COLORS[rType] || '#71717a';
@@ -79,17 +79,17 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
             return (
               <div
                 key={round.id || round.round_number}
-                className="rounded-lg p-3.5 bg-slate-900/80 border border-slate-800/80 space-y-2.5"
+                className="rounded-lg p-3.5 bg-slate-50 border border-slate-200 space-y-2.5"
               >
                 {/* Round Header */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-200">
+                    <span className="text-xs font-bold text-slate-800">
                       Round {round.round_number}
                     </span>
                     <span
                       className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded"
-                      style={{ backgroundColor: `${color}20`, color: color }}
+                      style={{ backgroundColor: `${color}15`, color: color }}
                     >
                       {rType}
                     </span>
@@ -112,7 +112,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
                 </div>
 
                 {/* Round Content */}
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
                   {round.round_text}
                 </p>
               </div>

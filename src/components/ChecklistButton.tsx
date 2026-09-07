@@ -79,7 +79,7 @@ export default function ChecklistButton({ companyId, companyName, topTags }: Che
       </button>
 
       {success && (
-        <span className="text-xs text-emerald-400 flex items-center gap-1 font-medium animate-fade-in">
+        <span className="text-xs text-emerald-700 flex items-center gap-1 font-medium animate-fade-in">
           <span>5 top topics added for {companyName}</span>
           <ArrowRight className="w-3 h-3" />
         </span>

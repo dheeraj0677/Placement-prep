@@ -45,7 +45,7 @@ export default function CompanyListClient({
   return (
     <div className="space-y-8">
       {/* Controls Bar: Search & Industry Pills */}
-      <div className="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+      <div className="glass-card rounded-2xl p-5 border border-slate-200 space-y-4 shadow-sm">
         <div className="max-w-md">
           <SearchBar
             initialQuery={search}
@@ -68,8 +68,8 @@ export default function CompanyListClient({
                 onClick={() => setSelectedIndustry(ind)}
                 className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition ${
                   isSelected
-                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md shadow-violet-500/20'
-                    : 'bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-sm'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200'
                 }`}
               >
                 {ind}
@@ -80,14 +80,14 @@ export default function CompanyListClient({
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-slate-400">
+      <div className="flex items-center justify-between text-xs text-slate-500">
         <span>
-          Showing <strong className="text-white">{filteredCompanies.length}</strong> of{' '}
+          Showing <strong className="text-slate-900 font-bold">{filteredCompanies.length}</strong> of{' '}
           {initialCompanies.length} companies
         </span>
         {search && (
           <span>
-            Filtering by: &quot;<span className="text-violet-400">{search}</span>&quot;
+            Filtering by: &quot;<span className="text-violet-700 font-semibold">{search}</span>&quot;
           </span>
         )}
       </div>
@@ -100,13 +100,13 @@ export default function CompanyListClient({
           ))}
         </div>
       ) : (
-        <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-800">
-          <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
+        <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-200 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-500">
             <SearchX className="w-6 h-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-white">No companies matched your search</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-lg font-bold text-slate-900">No companies matched your search</h3>
+            <p className="text-xs text-slate-500">
               Try adjusting your search query or reset the industry filter.
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function CompanyListClient({
               setSearch('');
               setSelectedIndustry('All');
             }}
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-md shadow-violet-500/20"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-sm"
           >
             Reset Filters
           </button>

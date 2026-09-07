@@ -14,19 +14,19 @@ export const TOPIC_KEYWORDS: Record<string, string[]> = {
 };
 
 export const TAG_COLORS: Record<string, { bg: string; text: string; border: string; bar: string }> = {
-  "DP": { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", bar: "#a855f7" },
-  "Graphs": { bg: "bg-violet-500/10", text: "text-violet-400", border: "border-violet-500/30", bar: "#8b5cf6" },
-  "Trees": { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/30", bar: "#10b981" },
-  "Arrays & Strings": { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/30", bar: "#06b6d4" },
-  "System Design": { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", bar: "#f59e0b" },
-  "OOP": { bg: "bg-indigo-500/10", text: "text-indigo-400", border: "border-indigo-500/30", bar: "#6366f1" },
-  "DBMS": { bg: "bg-rose-500/10", text: "text-rose-400", border: "border-rose-500/30", bar: "#f43f5e" },
-  "OS": { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/30", bar: "#0ea5e9" },
-  "CN": { bg: "bg-teal-500/10", text: "text-teal-400", border: "border-teal-500/30", bar: "#14b8a6" },
-  "Aptitude": { bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/30", bar: "#f97316" },
-  "HR": { bg: "bg-pink-500/10", text: "text-pink-400", border: "border-pink-400", bar: "#ec4899" },
-  "Behavioral": { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/30", bar: "#eab308" },
-  "Uncategorized": { bg: "bg-zinc-500/10", text: "text-zinc-400", border: "border-zinc-500/30", bar: "#71717a" },
+  "DP": { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200", bar: "#9333ea" },
+  "Graphs": { bg: "bg-violet-50", text: "text-violet-700", border: "border-violet-200", bar: "#7c3aed" },
+  "Trees": { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200", bar: "#059669" },
+  "Arrays & Strings": { bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200", bar: "#0891b2" },
+  "System Design": { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200", bar: "#d97706" },
+  "OOP": { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200", bar: "#4f46e5" },
+  "DBMS": { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200", bar: "#e11d48" },
+  "OS": { bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200", bar: "#0284c7" },
+  "CN": { bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200", bar: "#0d9488" },
+  "Aptitude": { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200", bar: "#ea580c" },
+  "HR": { bg: "bg-pink-50", text: "text-pink-700", border: "border-pink-200", bar: "#db2777" },
+  "Behavioral": { bg: "bg-yellow-50", text: "text-yellow-800", border: "border-yellow-200", bar: "#ca8a04" },
+  "Uncategorized": { bg: "bg-zinc-100", text: "text-zinc-700", border: "border-zinc-200", bar: "#71717a" },
 };
 
 export const ROUND_TYPE_COLORS: Record<string, string> = {

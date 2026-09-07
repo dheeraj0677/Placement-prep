@@ -53,13 +53,13 @@ export default function RoleCard({ role }: RoleCardProps) {
   const isTech = role.category === 'Technical';
 
   return (
-    <div className="glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full group border border-slate-800 relative overflow-hidden transition-all duration-300">
+    <div className="glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full group border border-slate-200 relative overflow-hidden transition-all duration-300">
       {/* Background Accent Glow */}
       <div 
         className={`absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl pointer-events-none transition duration-500 ${
           isTech 
-            ? 'bg-emerald-600/10 group-hover:bg-emerald-600/20' 
-            : 'bg-violet-600/10 group-hover:bg-violet-600/20'
+            ? 'bg-emerald-500/5 group-hover:bg-emerald-500/10' 
+            : 'bg-violet-500/5 group-hover:bg-violet-500/10'
         }`} 
       />
 
@@ -70,16 +70,16 @@ export default function RoleCard({ role }: RoleCardProps) {
             <span
               className={`px-2.5 py-1 text-[11px] font-bold rounded-lg uppercase tracking-wider border ${
                 isTech
-                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
-                  : 'bg-violet-500/15 text-violet-300 border-violet-500/30'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-violet-50 text-violet-700 border-violet-200'
               }`}
             >
               {role.category}
             </span>
 
             {role.badge && (
-              <span className="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-1">
-                <Sparkles className="w-2.5 h-2.5 text-amber-400" />
+              <span className="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
+                <Sparkles className="w-2.5 h-2.5 text-amber-500" />
                 <span>{role.badge}</span>
               </span>
             )}
@@ -87,7 +87,7 @@ export default function RoleCard({ role }: RoleCardProps) {
 
           {/* Salary Badge */}
           <div className="text-right">
-            <div className="text-xs font-mono font-bold text-emerald-400 flex items-center gap-0.5 justify-end">
+            <div className="text-xs font-mono font-bold text-emerald-700 flex items-center gap-0.5 justify-end">
               <span>{role.salaryRange}</span>
             </div>
             <div className="text-[10px] text-slate-500 font-medium">Avg: {role.averageCTC}</div>
@@ -97,10 +97,10 @@ export default function RoleCard({ role }: RoleCardProps) {
         {/* Role Icon & Title */}
         <div className="flex items-start gap-3.5 pt-1">
           <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300 group-hover:scale-105 shadow-md ${
+            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300 group-hover:scale-105 shadow-sm ${
               isTech
-                ? 'bg-emerald-600/15 text-emerald-400 border-emerald-500/30 shadow-emerald-500/10'
-                : 'bg-violet-600/15 text-violet-400 border-violet-500/30 shadow-violet-500/10'
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                : 'bg-violet-50 text-violet-700 border-violet-200'
             }`}
           >
             <IconComponent className="w-6 h-6" />
@@ -109,11 +109,11 @@ export default function RoleCard({ role }: RoleCardProps) {
           <div>
             <Link
               href={`/career-paths/${role.slug}`}
-              className="text-lg font-bold text-white group-hover:text-violet-300 transition line-clamp-1"
+              className="text-lg font-bold text-slate-900 group-hover:text-violet-700 transition line-clamp-1"
             >
               {role.title}
             </Link>
-            <p className="text-xs text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-slate-600 mt-0.5 line-clamp-2 leading-relaxed">
               {role.tagline}
             </p>
           </div>
@@ -121,20 +121,20 @@ export default function RoleCard({ role }: RoleCardProps) {
 
         {/* Essential Skills Pills */}
         <div className="space-y-1.5 pt-1">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+          <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             Key Skills Required:
           </div>
           <div className="flex flex-wrap gap-1.5">
             {role.coreSkills.slice(0, 4).map((skill) => (
               <span
                 key={skill.name}
-                className="px-2 py-0.5 text-[11px] rounded-md bg-slate-800/80 text-slate-300 border border-slate-700/60 font-medium"
+                className="px-2 py-0.5 text-[11px] rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-medium"
               >
                 {skill.name}
               </span>
             ))}
             {role.coreSkills.length > 4 && (
-              <span className="px-1.5 py-0.5 text-[10px] rounded-md bg-slate-900 text-slate-400 border border-slate-800">
+              <span className="px-1.5 py-0.5 text-[10px] rounded-md bg-slate-100 text-slate-500 border border-slate-200">
                 +{role.coreSkills.length - 4} more
               </span>
             )}
@@ -142,16 +142,16 @@ export default function RoleCard({ role }: RoleCardProps) {
         </div>
 
         {/* Top Hiring Companies Sample */}
-        <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
-            <Building2 className="w-3 h-3 text-slate-500" />
+        <div className="pt-2 border-t border-slate-200 space-y-1.5">
+          <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+            <Building2 className="w-3 h-3 text-slate-400" />
             <span>Top Recruiters:</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {role.hiringCompanies.slice(0, 4).map((c) => (
               <span
                 key={c.name}
-                className="px-2 py-0.5 text-[10px] rounded-md bg-slate-900/90 text-slate-300 border border-slate-800 font-semibold"
+                className="px-2 py-0.5 text-[10px] rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-semibold"
               >
                 {c.name}
               </span>
@@ -166,14 +166,14 @@ export default function RoleCard({ role }: RoleCardProps) {
       </div>
 
       {/* Action Footer */}
-      <div className="pt-5 mt-4 border-t border-slate-800 flex items-center justify-between">
-        <div className="text-[11px] text-slate-400">
-          <span className="font-semibold text-slate-300">{role.interviewRounds.length}</span> interview rounds
+      <div className="pt-5 mt-4 border-t border-slate-200 flex items-center justify-between">
+        <div className="text-[11px] text-slate-500">
+          <span className="font-semibold text-slate-700">{role.interviewRounds.length}</span> interview rounds
         </div>
 
         <Link
           href={`/career-paths/${role.slug}`}
-          className="inline-flex items-center gap-1 text-xs font-bold text-violet-400 group-hover:text-violet-200 transition group-hover:translate-x-0.5 duration-200"
+          className="inline-flex items-center gap-1 text-xs font-bold text-violet-600 group-hover:text-violet-700 transition group-hover:translate-x-0.5 duration-200"
         >
           <span>Role Blueprint</span>
           <ArrowRight className="w-3.5 h-3.5" />

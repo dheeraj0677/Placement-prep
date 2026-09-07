@@ -36,7 +36,7 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'grid-pattern': "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+        'grid-pattern': "radial-gradient(rgba(139, 92, 246, 0.08) 1px, transparent 1px)",
       },
     },
   },

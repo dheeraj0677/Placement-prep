@@ -51,12 +51,12 @@ export default function SearchBar({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full pl-11 pr-10 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition shadow-inner backdrop-blur-md"
+          className="w-full pl-11 pr-10 py-3.5 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/25 focus:border-violet-500 transition shadow-sm backdrop-blur-md"
         />
         {query && (
           <button
             onClick={handleClear}
-            className="absolute right-3.5 p-1 text-slate-400 hover:text-white rounded-md transition"
+            className="absolute right-3.5 p-1 text-slate-400 hover:text-slate-700 rounded-md transition"
             aria-label="Clear search"
           >
             <X className="w-4 h-4" />

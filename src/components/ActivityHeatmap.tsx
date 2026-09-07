@@ -47,28 +47,28 @@ export default function ActivityHeatmap({
 
   // Color mapper based on count
   const getColor = (count: number) => {
-    if (count === 0) return 'bg-slate-900 border-slate-800/80';
-    if (count <= 2) return 'bg-emerald-950/80 border-emerald-800 text-emerald-300';
-    if (count <= 5) return 'bg-emerald-700/80 border-emerald-600 text-white';
-    return 'bg-emerald-500 border-emerald-400 text-white shadow-sm shadow-emerald-500/30';
+    if (count === 0) return 'bg-slate-100 border-slate-200';
+    if (count <= 2) return 'bg-emerald-100 border-emerald-300';
+    if (count <= 5) return 'bg-emerald-300 border-emerald-400';
+    return 'bg-emerald-500 border-emerald-600 shadow-sm shadow-emerald-500/20';
   };
 
   return (
-    <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-5">
+    <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-200 space-y-5">
       {/* Header with Streaks */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
             <Calendar className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
               <span>Preparation Consistency Calendar</span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-normal">
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-normal">
                 Past 16 Weeks
               </span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               {totalActivityCount} total prep activities recorded
             </p>
           </div>
@@ -76,19 +76,19 @@ export default function ActivityHeatmap({
 
         {/* Streak Badges */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-300">
-            <Flame className="w-4 h-4 text-orange-400 animate-pulse" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200 text-orange-800">
+            <Flame className="w-4 h-4 text-orange-500 animate-pulse" />
             <div className="text-xs">
-              <span className="font-extrabold text-orange-400">{currentStreak} day</span>
-              <span className="text-slate-400 ml-1 font-medium">current streak</span>
+              <span className="font-extrabold text-orange-700">{currentStreak} day</span>
+              <span className="text-slate-500 ml-1 font-medium">current streak</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-800">
+            <Sparkles className="w-4 h-4 text-indigo-500" />
             <div className="text-xs">
-              <span className="font-extrabold text-indigo-400">{longestStreak} day</span>
-              <span className="text-slate-400 ml-1 font-medium">longest streak</span>
+              <span className="font-extrabold text-indigo-700">{longestStreak} day</span>
+              <span className="text-slate-500 ml-1 font-medium">longest streak</span>
             </div>
           </div>
         </div>
@@ -119,10 +119,10 @@ export default function ActivityHeatmap({
 
             <div className="flex items-center gap-1.5">
               <span>Less</span>
-              <div className="w-3 h-3 rounded-[3px] bg-slate-900 border border-slate-800" />
-              <div className="w-3 h-3 rounded-[3px] bg-emerald-950 border border-emerald-800" />
-              <div className="w-3 h-3 rounded-[3px] bg-emerald-700 border border-emerald-600" />
-              <div className="w-3 h-3 rounded-[3px] bg-emerald-500 border border-emerald-400" />
+              <div className="w-3 h-3 rounded-[3px] bg-slate-100 border border-slate-200" />
+              <div className="w-3 h-3 rounded-[3px] bg-emerald-100 border border-emerald-300" />
+              <div className="w-3 h-3 rounded-[3px] bg-emerald-300 border border-emerald-400" />
+              <div className="w-3 h-3 rounded-[3px] bg-emerald-500 border border-emerald-600" />
               <span>More</span>
             </div>
           </div>

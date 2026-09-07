@@ -34,33 +34,33 @@ export default function LoginPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 relative">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-violet-100/50 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md space-y-6 relative z-10">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition mb-2"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
         </Link>
 
-        <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6 shadow-2xl">
+        <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200 bg-white space-y-6 shadow-xl">
           {/* Header */}
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center mx-auto shadow-lg shadow-violet-500/25">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center mx-auto shadow-md shadow-violet-500/25">
               <Radar className="w-6 h-6 text-white animate-spin-slow" />
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
-              Sign in to <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">PlacementPrep Radar</span>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              Sign in to <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">PlacementPrep Radar</span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Access your personalized target company checklists and saved insights.
             </p>
           </div>
 
           {errorMsg && (
-            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs">
+            <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs">
               {errorMsg}
             </div>
           )}
@@ -70,7 +70,7 @@ export default function LoginPage() {
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm transition shadow-lg shadow-white/5 active:scale-98 disabled:opacity-70 cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm transition shadow-sm active:scale-98 disabled:opacity-70 cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -95,17 +95,17 @@ export default function LoginPage() {
           </div>
 
           {/* Benefits list */}
-          <div className="pt-4 border-t border-slate-800/80 space-y-2.5 text-xs text-slate-400">
+          <div className="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-600">
             <div className="flex items-center gap-2">
-              <CheckSquare className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
               <span>Persist checklists across all devices via Supabase</span>
             </div>
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-3.5 h-3.5 text-violet-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-violet-600" />
               <span>Protected by PostgreSQL Row Level Security (RLS)</span>
             </div>
             <div className="flex items-center gap-2">
-              <Lock className="w-3.5 h-3.5 text-indigo-400" />
+              <Lock className="w-3.5 h-3.5 text-indigo-600" />
               <span>Secure cookie sessions with @supabase/ssr</span>
             </div>
           </div>
