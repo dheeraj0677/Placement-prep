@@ -15,6 +15,8 @@ export async function updateSession(request: NextRequest) {
     return response;
   }
 
+  const isProduction = process.env.NODE_ENV === 'production';
+
   const supabase = createServerClient(
     supabaseUrl,
     supabaseKey,
@@ -26,17 +28,18 @@ export async function updateSession(request: NextRequest) {
         setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
+            request,
           });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set({
-              name,
-              value,
+          cookiesToSet.forEach(({ name, value, options }) => {
+            const finalOptions: CookieOptions = {
               ...options,
-            })
-          );
+              maxAge: options?.maxAge ?? 400 * 24 * 60 * 60,
+              sameSite: 'lax',
+              path: '/',
+              ...(isProduction ? { secure: true } : {}),
+            };
+            response.cookies.set(name, value, finalOptions);
+          });
         },
       },
     }
@@ -51,3 +54,4 @@ export async function updateSession(request: NextRequest) {
 
   return response;
 }
+

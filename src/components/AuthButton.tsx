@@ -15,8 +15,19 @@ export default function AuthButton() {
 
     // 1. Check local session immediately
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+      if (session?.user) {
+        setUser(session.user);
+        setLoading(false);
+      } else {
+        // Attempt getUser() to trigger token refresh if access token expired
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          setUser(user ?? null);
+          setLoading(false);
+        }).catch(() => {
+          setUser(null);
+          setLoading(false);
+        });
+      }
     }).catch(() => {
       setUser(null);
       setLoading(false);
