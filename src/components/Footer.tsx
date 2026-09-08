@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Radar, Terminal, Database, ShieldCheck, Heart, Sparkles, ArrowRight, Github, ExternalLink, GitCompare, BarChart3, Bookmark } from 'lucide-react';
+import { Radar, Heart, Sparkles, ArrowRight, Github, ExternalLink, GitCompare, BarChart3, Bookmark } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -27,21 +27,6 @@ export default function Footer() {
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
               Transforming unstructured tech interview experiences from GeeksforGeeks & LeetCode into data-driven trend radars, must-solve preparation roadmaps, and Career Compass workshop blueprints.
             </p>
-
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-violet-50 text-violet-700 border border-violet-200">
-                <Database className="w-3.5 h-3.5 text-violet-600" />
-                Supabase Postgres
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
-                <Terminal className="w-3.5 h-3.5 text-emerald-600" />
-                Python Scraper
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-50 text-purple-700 border border-purple-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />
-                RLS Protected
-              </span>
-            </div>
           </div>
 
           {/* Quick Links Column */}
