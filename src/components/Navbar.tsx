@@ -145,7 +145,7 @@ export default function Navbar() {
 
               {/* Dropdown Menu */}
               {toolsDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-64 p-2 bg-white/98 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-xl z-50 space-y-1 animate-in fade-in duration-150">
+                <div className="absolute right-0 top-full mt-2 w-64 p-2 bg-white border border-slate-200 rounded-2xl shadow-2xl z-[70] space-y-1 animate-in fade-in duration-150">
                   <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                     Preparation Tools
                   </div>
@@ -226,7 +226,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-4 shadow-xl">
+        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-4 shadow-xl">
           {/* Mobile Track Switcher */}
           <div className="p-1 rounded-xl bg-slate-100 flex items-center gap-1 border border-slate-200">
             <button

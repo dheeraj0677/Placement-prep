@@ -100,7 +100,7 @@ export default function BookmarkButton({
       {/* Note modal/popover */}
       {isNoteOpen && (
         <div
-          className="absolute right-0 top-full mt-2 w-72 p-3 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-xl shadow-xl z-50 space-y-2 text-left"
+          className="absolute right-0 top-full mt-2 w-72 p-3 bg-white border border-slate-200 rounded-xl shadow-2xl z-50 space-y-2 text-left"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between text-xs font-semibold text-slate-900">
