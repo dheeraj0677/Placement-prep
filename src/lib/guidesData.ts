@@ -2,7 +2,7 @@ export interface GuideProblem {
   id: string;
   title: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
-  platform: 'LeetCode' | 'GeeksforGeeks';
+  platform: 'LeetCode' | 'GeeksforGeeks' | 'HDLBits' | 'Edaplayground' | string;
   url: string;
   pattern: string;
   whyAsked: string;
@@ -19,7 +19,7 @@ export interface PrepGuide {
   slug: string;
   title: string;
   tag: string;
-  category: 'DSA' | 'CS Fundamentals' | 'System Design' | 'Soft Skills';
+  category: 'DSA' | 'CS Fundamentals' | 'System Design' | 'Soft Skills' | 'VLSI & Hardware' | 'Embedded Systems';
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   estimatedHours: number;
   iconName: string;

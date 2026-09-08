@@ -1,13 +1,13 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { MOCK_COMPANIES } from '@/lib/mockData';
+import { ALL_COMPANIES } from '@/lib/mockData';
 import CompanyListClient from './CompanyListClient';
 import { Compass, Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Browse Tech Companies — PlacementPrep Radar',
-  description: 'Explore interview trends, topic breakdowns, and round distributions across top tech companies.',
+  title: 'Browse Companies & Chipmakers — PlacementPrep Radar',
+  description: 'Explore interview trends, topic breakdowns, and round distributions across Software and Semiconductor companies.',
 };
 
 export default async function CompaniesPage({
@@ -15,7 +15,7 @@ export default async function CompaniesPage({
 }: {
   searchParams?: { search?: string };
 }) {
-  let companies = MOCK_COMPANIES;
+  let companies = ALL_COMPANIES;
 
   try {
     const supabase = createClient();

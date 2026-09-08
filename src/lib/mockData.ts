@@ -1,5 +1,6 @@
 import { Company, CompanyTrendInsights, Experience, ExperienceRound, RoundTag } from '@/types/database';
 import { TOPIC_KEYWORDS } from './constants';
+import { ECE_COMPANIES, ECE_EXPERIENCES, getEceCompanyTrendInsights } from './eceData';
 
 export const MOCK_COMPANIES: Company[] = [
   {
@@ -633,8 +634,27 @@ export const MOCK_EXPERIENCES: Record<string, Experience[]> = {
   ]
 };
 
+export const ALL_COMPANIES: Company[] = [
+  ...MOCK_COMPANIES.map(c => ({ ...c, domain: 'it' as const })),
+  ...ECE_COMPANIES
+];
+
+export function getCompaniesByDomain(domain?: 'it' | 'ece' | 'all'): Company[] {
+  if (!domain || domain === 'all') return ALL_COMPANIES;
+  return ALL_COMPANIES.filter(c => c.domain === domain);
+}
+
 export function getMockCompanyTrends(companyIdOrName: string): CompanyTrendInsights {
-  const company = MOCK_COMPANIES.find(
+  // Check if it's an ECE company first
+  const eceComp = ECE_COMPANIES.find(
+    c => c.id === companyIdOrName || c.name.toLowerCase() === companyIdOrName.toLowerCase()
+  );
+  if (eceComp) {
+    const eceInsights = getEceCompanyTrendInsights(eceComp.id);
+    if (eceInsights) return eceInsights;
+  }
+
+  const company = ALL_COMPANIES.find(
     c => c.id === companyIdOrName || c.name.toLowerCase() === companyIdOrName.toLowerCase()
   ) || MOCK_COMPANIES[0];
 

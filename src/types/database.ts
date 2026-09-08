@@ -6,15 +6,36 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export type Domain = 'it' | 'ece';
+
 export interface Company {
   id: string;
   name: string;
   logo_url: string | null;
   industry: string | null;
+  domain?: Domain;
   created_at?: string;
   // Computed / aggregated fields for UI
   experience_count?: number;
   top_tags?: string[];
+}
+
+export interface InterviewQuestion {
+  id: string;
+  title: string;
+  company_ids: string[];
+  company_names: string[];
+  domain: Domain;
+  category: string;
+  subtopic?: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  frequency: 'High' | 'Medium' | 'Low';
+  round_type: 'OA' | 'Technical' | 'HR';
+  question_text: string;
+  answer_outline: string;
+  code_snippet?: string;
+  key_concepts: string[];
+  practice_url?: string;
 }
 
 export interface Experience {

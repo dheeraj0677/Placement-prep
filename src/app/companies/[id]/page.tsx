@@ -2,23 +2,58 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Building2, BarChart2, PieChart as PieIcon, TrendingUp, Sparkles, Layers, ListCollapse, ExternalLink } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Building2, 
+  BarChart2, 
+  PieChart as PieIcon, 
+  TrendingUp, 
+  Sparkles, 
+  Layers, 
+  ListCollapse, 
+  ExternalLink,
+  Target,
+  Zap,
+  BookOpen,
+  CheckCircle2,
+  HelpCircle,
+  Flame,
+  ArrowRight
+} from 'lucide-react';
 import ChartWrapper from '@/components/ChartWrapper';
 import TopicBarChart from '@/components/TopicBarChart';
 import RoundTypePieChart from '@/components/RoundTypePieChart';
 import ChecklistButton from '@/components/ChecklistButton';
 import ExperienceCard from '@/components/ExperienceCard';
 import BookmarkButton from '@/components/BookmarkButton';
-import { getMockCompanyTrends, MOCK_COMPANIES } from '@/lib/mockData';
+import { getMockCompanyTrends, ALL_COMPANIES, MOCK_COMPANIES } from '@/lib/mockData';
+import { getQuestionsByCompany, INTERVIEW_QUESTIONS } from '@/lib/questionsData';
 import { createClient } from '@/lib/supabase/server';
 import { CompanyTrendInsights } from '@/types/database';
+
+const TAG_TO_GUIDE: Record<string, { slug: string; title: string }> = {
+  'DP': { slug: 'dynamic-programming', title: 'Dynamic Programming Master Guide' },
+  'Graphs': { slug: 'graph-algorithms', title: 'Graph Algorithms Blueprint' },
+  'Trees': { slug: 'binary-trees-bst', title: 'Binary Trees & BST Master Guide' },
+  'Arrays & Strings': { slug: 'arrays-two-pointers', title: 'Arrays & Sliding Window Blueprint' },
+  'System Design': { slug: 'system-design', title: 'System Design Master Blueprint' },
+  'DBMS': { slug: 'dbms-sql-internals', title: 'DBMS & SQL Internals' },
+  'OS': { slug: 'operating-systems', title: 'Operating Systems & Concurrency' },
+  'Digital Electronics': { slug: 'digital-electronics-vlsi', title: 'Digital Electronics & FSM Master Guide' },
+  'Verilog & SystemVerilog': { slug: 'verilog-systemverilog-rtl', title: 'Synthesizable Verilog & RTL Blueprint' },
+  'STA & Timing Analysis': { slug: 'sta-timing-analysis', title: 'Static Timing Analysis (STA) & CDC Guide' },
+  'Embedded C & RTOS': { slug: 'embedded-c-rtos', title: 'Embedded C & RTOS Concurrency Guide' },
+  'Microcontrollers & Protocols': { slug: 'microcontrollers-protocols', title: 'Serial Protocols (UART, SPI, I2C, CAN) Blueprint' },
+  'Computer Architecture & RISC-V': { slug: 'computer-architecture-riscv', title: 'Computer Architecture & RISC-V Pipelining' },
+  'Analog Electronics & Op-Amps': { slug: 'analog-electronics-opamps', title: 'Analog Electronics & Small-Signal MOSFET Design' },
+};
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const company = MOCK_COMPANIES.find(c => c.id === params.id || c.name.toLowerCase() === params.id.toLowerCase());
+  const company = ALL_COMPANIES.find(c => c.id === params.id || c.name.toLowerCase() === params.id.toLowerCase());
   const name = company ? company.name : 'Company';
   return {
     title: `${name} Interview Radar — Topics, Rounds & Prep Checklist`,
@@ -140,6 +175,21 @@ export default async function CompanyDetailPage({
 
   const { company, totalExperiences, totalRounds, topicBreakdown, roundTypeBreakdown, trendingShifts, recentExperiences, topTags } = data;
 
+  // Retrieve curated company-specific questions
+  const companyQuestions = getQuestionsByCompany(company.id);
+  const fallbackQuestions = companyQuestions.length > 0 
+    ? companyQuestions 
+    : INTERVIEW_QUESTIONS.filter(q => q.category === topTags[0] || q.domain === company.domain).slice(0, 3);
+
+  // Derive top high-yield guides for this company
+  const highYieldGuides = topTags
+    .map(tag => TAG_TO_GUIDE[tag])
+    .filter((g): g is { slug: string; title: string } => Boolean(g))
+    .slice(0, 2);
+
+  const topPriorityTopic = topicBreakdown[0]?.tag || topTags[0] || 'Core Concepts';
+  const topPriorityPct = topicBreakdown[0]?.percentage || 35;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       {/* Back Link */}
@@ -160,10 +210,20 @@ export default async function CompanyDetailPage({
             {company.name.charAt(0)}
           </div>
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-medium">
-              <Building2 className="w-3 h-3" />
-              <span>{company.industry || 'Technology'}</span>
+            <div className="flex items-center gap-2">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-medium">
+                <Building2 className="w-3 h-3" />
+                <span>{company.industry || 'Technology'}</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[11px] font-semibold border ${
+                company.domain === 'ece'
+                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200'
+                  : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+              }`}>
+                {company.domain === 'ece' ? 'Semiconductor / ECE' : 'Software / IT'}
+              </span>
             </div>
+            
             <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900">
               {company.name} <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">Interview Radar</span>
             </h1>
@@ -175,7 +235,7 @@ export default async function CompanyDetailPage({
           </div>
         </div>
 
-        {/* 1-Click Checklist Generator Action & Bookmark */}
+        {/* Action Buttons */}
         <div className="w-full md:w-auto flex flex-wrap items-center gap-3">
           <BookmarkButton
             id={company.id}
@@ -198,6 +258,126 @@ export default async function CompanyDetailPage({
             companyName={company.name}
             topTags={topTags}
           />
+        </div>
+      </div>
+
+      {/* "WHAT SHOULD I STUDY TODAY?" HIGH-YIELD ACTION PANEL */}
+      <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white border border-slate-800 shadow-xl relative overflow-hidden space-y-6">
+        <div className="absolute top-0 right-0 -mt-6 -mr-6 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+              <Zap className="w-3.5 h-3.5 fill-amber-400" />
+              <span>Target Study Blueprint</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              What Should You Study Today for {company.name}?
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              Based on historical placement round frequencies, prioritize these high-yield topics before attempting technical rounds.
+            </p>
+          </div>
+
+          <Link
+            href={`/questions?q=${encodeURIComponent(company.name)}`}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold shadow-lg shadow-violet-600/30 transition self-start md:self-auto"
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span>Open {company.name} Question Bank</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-10">
+          {/* Priority Topic Card */}
+          <div className="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-violet-400 uppercase tracking-wider">
+                Priority 1 Subject
+              </span>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                {topPriorityPct}% of Rounds
+              </span>
+            </div>
+
+            <div className="text-lg font-bold text-white">
+              {topPriorityTopic}
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Consistently tested across online assessments and first technical elimination rounds at {company.name}.
+            </p>
+
+            {highYieldGuides[0] && (
+              <div className="pt-2">
+                <Link
+                  href={`/guides/${highYieldGuides[0].slug}`}
+                  className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 group"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Review {highYieldGuides[0].title}</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition" />
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Curated Questions from Bank */}
+          <div className="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-3 md:col-span-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Flame className="w-3.5 h-3.5 fill-emerald-400" />
+                Verified Recurring Interview Questions
+              </span>
+              <span className="text-xs text-slate-400">
+                {fallbackQuestions.length} Recommended
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              {fallbackQuestions.map((q) => (
+                <Link
+                  key={q.id}
+                  href={`/questions?q=${encodeURIComponent(q.title)}`}
+                  className="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 transition flex items-center justify-between group"
+                >
+                  <div className="space-y-0.5 pr-2">
+                    <div className="text-xs font-semibold text-slate-200 group-hover:text-white transition line-clamp-1">
+                      {q.title}
+                    </div>
+                    <div className="text-[11px] text-slate-400 flex items-center gap-2">
+                      <span className="text-violet-400 font-medium">{q.category}</span>
+                      <span>•</span>
+                      <span className={
+                        q.difficulty === 'Easy' ? 'text-emerald-400' :
+                        q.difficulty === 'Medium' ? 'text-amber-400' : 'text-rose-400'
+                      }>
+                        {q.difficulty}
+                      </span>
+                      <span>•</span>
+                      <span>{q.round_type || 'Technical'}</span>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-violet-400 group-hover:translate-x-0.5 transition shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 3-Step Daily Target Action Bar */}
+        <div className="p-4 rounded-2xl bg-slate-800/40 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300">
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span><strong>Suggested Daily Plan:</strong> 1. Read topic blueprint (45m) → 2. Solve 2 questions above → 3. Mark off checklist.</span>
+          </div>
+          <Link
+            href="/study-plan"
+            className="text-violet-400 hover:text-violet-300 font-semibold whitespace-nowrap flex items-center gap-1 self-start sm:self-auto"
+          >
+            Generate 30-Day Plan <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
       </div>
 

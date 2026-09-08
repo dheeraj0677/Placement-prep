@@ -1,17 +1,23 @@
 """
-PlacementPrep Radar - Scraper & Seeding CLI
-Entrypoint for scraping single interview posts, batch processing CSV seeds,
-and running topic classifications.
+PlacementPrep Radar - Multi-Source Scraper & Seeding CLI
+Entrypoint for scraping interview posts from GeeksforGeeks, AmbitionBox, and Naukri Code360,
+batch processing CSV seeds, and running dual-track (IT + ECE) topic classifications.
 
 Usage:
-  # Seed from CSV file into Supabase:
-  python main.py --seed-csv seed_data.csv
+  # Preview ECE seed classifications:
+  python main.py --preview --seed-csv seed_data_ece.csv --domain ece
 
-  # Scrape a specific GFG URL:
-  python main.py --company "Google" --url "https://www.geeksforgeeks.org/..."
+  # Preview IT seed classifications:
+  python main.py --preview --seed-csv seed_data.csv --domain it
 
-  # Preview classification results in terminal without database:
-  python main.py --preview --seed-csv seed_data.csv
+  # Scrape a GeeksforGeeks interview URL:
+  python main.py --url "https://www.geeksforgeeks.org/..." --company "NVIDIA" --domain ece
+
+  # Scrape an AmbitionBox URL:
+  python main.py --url "https://www.ambitionbox.com/interviews/..." --company "Qualcomm" --domain ece
+
+  # Scrape a Naukri Code360 URL:
+  python main.py --url "https://www.naukri.com/code360/..." --company "Google" --domain it
 """
 
 import argparse
@@ -19,7 +25,7 @@ import csv
 import os
 import sys
 from collections import defaultdict
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 # Force stdout encoding to utf-8 if needed on Windows
 if sys.platform == "win32":
@@ -27,10 +33,35 @@ if sys.platform == "win32":
 
 from classifier import classify_round
 from scraper_gfg import fetch_and_parse_gfg_sync
+from scraper_ambitionbox import fetch_and_parse_ambitionbox_sync
+from scraper_code360 import fetch_and_parse_code360_sync
 from db import get_supabase_client, upsert_interview_experience
 
 
-def process_csv_seed(csv_path: str, preview_only: bool = False):
+def detect_platform(url: str, explicit_platform: Optional[str] = None) -> str:
+    """Detects scraper platform from URL domain or explicit argument."""
+    if explicit_platform and explicit_platform != "auto":
+        return explicit_platform.lower()
+
+    url_lower = url.lower()
+    if "ambitionbox.com" in url_lower:
+        return "ambitionbox"
+    if "code360" in url_lower or "codingninjas" in url_lower or "naukri.com" in url_lower:
+        return "code360"
+    return "gfg"
+
+
+def scrape_url_by_platform(url: str, platform: str, company: Optional[str] = None) -> Dict[str, Any]:
+    """Routes URL to appropriate scraper parser."""
+    if platform == "ambitionbox":
+        return fetch_and_parse_ambitionbox_sync(url, override_company=company)
+    elif platform == "code360":
+        return fetch_and_parse_code360_sync(url, override_company=company)
+    else:
+        return fetch_and_parse_gfg_sync(url, override_company=company)
+
+
+def process_csv_seed(csv_path: str, domain: Optional[str] = None, preview_only: bool = False):
     """
     Reads a CSV file of interview experiences and rounds,
     groups by experience (source_url), classifies topic tags,
@@ -40,7 +71,11 @@ def process_csv_seed(csv_path: str, preview_only: bool = False):
         print(f"[ERROR] CSV file not found at {csv_path}")
         sys.exit(1)
 
-    print(f"\n[*] Reading seed data from: {csv_path}")
+    # Infer domain from filename if not explicitly provided
+    if not domain:
+        domain = "ece" if "ece" in csv_path.lower() else "it"
+
+    print(f"\n[*] Reading seed data from: {csv_path} (Target Domain: {domain.upper()})")
 
     experiences_by_url: Dict[str, Dict[str, Any]] = {}
 
@@ -59,6 +94,7 @@ def process_csv_seed(csv_path: str, preview_only: bool = False):
                     "year": int(row.get("year", 2024)),
                     "source_platform": row.get("source_platform", "Curated Seed").strip(),
                     "source_url": url,
+                    "domain": row.get("domain", domain).strip(),
                     "raw_text": row.get("round_text", ""),
                     "rounds": [],
                 }
@@ -78,8 +114,8 @@ def process_csv_seed(csv_path: str, preview_only: bool = False):
     print(f"[*] Found {total_exps} distinct interview experiences with {total_rounds} total rounds.\n")
 
     if preview_only:
-        print("[*] RUNNING PREVIEW MODE (Topic Classification Summary)")
-        print("=" * 70)
+        print(f"[*] RUNNING PREVIEW MODE ({domain.upper()} Topic Classification Summary)")
+        print("=" * 75)
         tag_counts = defaultdict(int)
         company_counts = defaultdict(int)
 
@@ -87,31 +123,28 @@ def process_csv_seed(csv_path: str, preview_only: bool = False):
             company_counts[exp["company"]] += 1
             print(f"[{exp['company']}] {exp['role']} ({exp['year']}) - {len(exp['rounds'])} rounds")
             for r in exp["rounds"]:
-                tags = classify_round(r["round_text"])
+                tags = classify_round(r["round_text"], domain=domain)
                 for t in tags:
                     tag_counts[t] += 1
                 print(f"   +- Round {r['round_number']} ({r['round_type']}): Tags -> {tags}")
             print()
 
-        print("=" * 70)
-        print("[*] TOPIC FREQUENCY BREAKDOWN:")
+        print("=" * 75)
+        print(f"[*] {domain.upper()} TOPIC FREQUENCY BREAKDOWN:")
         total_tag_instances = sum(tag_counts.values()) or 1
         for tag, count in sorted(tag_counts.items(), key=lambda x: x[1], reverse=True):
             pct = (count / total_tag_instances) * 100
-            bar = "#" * int(pct // 3)
-            print(f"  {tag:<18} : {count:>3} mentions ({pct:>5.1f}%) {bar}")
-        print("=" * 70)
+            print(f"  {tag:<30}: {count:>3} occurrences ({pct:>5.1f}%)")
+        print("=" * 75)
         return
 
-    # Check Supabase connection
+    # Supabase upsert pipeline
     supabase = get_supabase_client()
     if not supabase:
-        print("[!] Supabase credentials not configured in scraper/.env or .env.local")
-        print("    Running in preview mode instead...\n")
-        process_csv_seed(csv_path, preview_only=True)
+        print("\n[!] No active Supabase client configured. Results previewed above.")
         return
 
-    print("[*] Upserting experiences into Supabase...")
+    print("\n[*] Starting Supabase upsert pipeline...")
     success_count = 0
     total_tags_count = 0
 
@@ -137,11 +170,21 @@ def process_csv_seed(csv_path: str, preview_only: bool = False):
     print(f"\n[OK] Done! Successfully seeded {success_count}/{total_exps} experiences ({total_tags_count} tags generated).")
 
 
-def process_single_url(url: str, company: str, role: str = "Software Engineer", year: int = 2024, preview_only: bool = False):
-    """Fetches, parses, classifies, and inserts a single URL."""
-    print(f"\n[*] Fetching & parsing URL: {url}")
+def process_single_url(
+    url: str,
+    company: str,
+    role: str = "Software Engineer",
+    year: int = 2024,
+    platform: str = "auto",
+    domain: str = "it",
+    preview_only: bool = False
+):
+    """Fetches, parses, classifies, and inserts a single URL across GFG, AmbitionBox, or Code360."""
+    resolved_platform = detect_platform(url, platform)
+    print(f"\n[*] Fetching & parsing from platform: [{resolved_platform.upper()}] URL: {url}")
+    
     try:
-        data = fetch_and_parse_gfg_sync(url, override_company=company)
+        data = scrape_url_by_platform(url, resolved_platform, company=company)
     except Exception as e:
         print(f"[ERROR] Fetching URL failed: {e}")
         return
@@ -153,10 +196,11 @@ def process_single_url(url: str, company: str, role: str = "Software Engineer", 
 
     print(f"Company: {data['company']}")
     print(f"Role: {data['role']} ({data['year']})")
+    print(f"Detected Platform: {data['source_platform']}")
     print(f"Detected Rounds: {len(data['rounds'])}")
 
     for r in data["rounds"]:
-        tags = classify_round(r["round_text"])
+        tags = classify_round(r["round_text"], domain=domain)
         print(f"  +- Round {r['round_number']} ({r['round_type']}): Tags -> {tags}")
 
     if preview_only:
@@ -181,9 +225,11 @@ def process_single_url(url: str, company: str, role: str = "Software Engineer", 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="PlacementPrep Radar Scraper & Seeding Tool")
+    parser = argparse.ArgumentParser(description="PlacementPrep Radar Multi-Source Scraper & Seeding Tool")
     parser.add_argument("--seed-csv", type=str, help="Path to CSV file with seed data")
-    parser.add_argument("--url", type=str, help="GeeksforGeeks interview experience URL to scrape")
+    parser.add_argument("--url", type=str, help="Interview experience URL to scrape")
+    parser.add_argument("--platform", type=str, default="auto", choices=["auto", "gfg", "ambitionbox", "code360"], help="Scraping source platform")
+    parser.add_argument("--domain", type=str, default="it", choices=["it", "ece"], help="Target domain (it or ece)")
     parser.add_argument("--company", type=str, default="Google", help="Company name (for single URL scrape)")
     parser.add_argument("--role", type=str, default="Software Engineer", help="Role name")
     parser.add_argument("--year", type=int, default=2024, help="Interview year")
@@ -192,14 +238,22 @@ def main():
     args = parser.parse_args()
 
     if args.seed_csv:
-        process_csv_seed(args.seed_csv, preview_only=args.preview)
+        process_csv_seed(args.seed_csv, domain=args.domain, preview_only=args.preview)
     elif args.url:
-        process_single_url(args.url, company=args.company, role=args.role, year=args.year, preview_only=args.preview)
+        process_single_url(
+            args.url,
+            company=args.company,
+            role=args.role,
+            year=args.year,
+            platform=args.platform,
+            domain=args.domain,
+            preview_only=args.preview
+        )
     else:
         default_csv = os.path.join(os.path.dirname(__file__), "seed_data.csv")
         if os.path.exists(default_csv):
-            print("No arguments provided. Running classification preview on seed_data.csv:")
-            process_csv_seed(default_csv, preview_only=True)
+            print("No arguments provided. Running classification preview on seed_data.csv (IT Track):")
+            process_csv_seed(default_csv, domain="it", preview_only=True)
         else:
             parser.print_help()
 

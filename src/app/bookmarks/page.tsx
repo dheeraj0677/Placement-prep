@@ -16,7 +16,8 @@ import {
   ArrowRight,
   Edit2,
   Check,
-  X
+  X,
+  HelpCircle
 } from 'lucide-react';
 import { useBookmarks, BookmarkType, BookmarkItem } from '@/lib/useBookmarks';
 import { TAG_COLORS } from '@/lib/constants';
@@ -55,6 +56,7 @@ export default function BookmarksPage() {
     guide: BookOpen,
     problem: Code2,
     experience: UserCheck,
+    question: HelpCircle,
   };
 
   const typeLabels: Record<BookmarkType, string> = {
@@ -62,6 +64,7 @@ export default function BookmarksPage() {
     guide: 'Prep Guide',
     problem: 'Must-Solve Question',
     experience: 'Interview Experience',
+    question: 'Interview Question',
   };
 
   if (!isMounted) {

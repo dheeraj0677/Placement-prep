@@ -15,7 +15,9 @@ import {
   Clock, 
   GitCompare,
   Lock,
-  Star
+  Star,
+  Layers,
+  Target
 } from 'lucide-react';
 import { Achievement } from '@/lib/achievements';
 
@@ -32,6 +34,8 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Bookmark,
   Clock,
   GitCompare,
+  Layers,
+  Target,
 };
 
 interface AchievementBadgeProps {

@@ -138,7 +138,76 @@ export const ACHIEVEMENTS: Achievement[] = [
     points: 50,
     condition: (s) => s.comparedCompaniesCount >= 1,
   },
+  {
+    id: 'silicon-initiate',
+    title: 'Silicon Initiate',
+    description: 'Solve your first Digital Electronics, Verilog, or STA timing problem.',
+    icon: 'Cpu',
+    category: 'Mastery',
+    points: 100,
+    condition: (s) => ((s.solvedByTopic['Digital Electronics'] || 0) + (s.solvedByTopic['Verilog & SystemVerilog'] || 0) + (s.solvedByTopic['STA & Timing Analysis'] || 0)) >= 1,
+  },
+  {
+    id: 'timing-closure',
+    title: 'Timing Closure Guru',
+    description: 'Solve at least 3 STA, Slack or CDC timing analysis questions.',
+    icon: 'Clock',
+    category: 'Mastery',
+    points: 200,
+    condition: (s) => (s.solvedByTopic['STA & Timing Analysis'] || 0) >= 3,
+  },
+  {
+    id: 'firmware-architect',
+    title: 'Firmware Architect',
+    description: 'Solve at least 3 Embedded C, RTOS, or Protocol questions.',
+    icon: 'Zap',
+    category: 'Mastery',
+    points: 200,
+    condition: (s) => ((s.solvedByTopic['Embedded C & RTOS'] || 0) + (s.solvedByTopic['Microcontrollers & Protocols'] || 0)) >= 3,
+  },
+  {
+    id: 'dual-track-polymath',
+    title: 'Dual-Track Polymath',
+    description: 'Solve problems across both Software (DSA) and Hardware (ECE) tracks.',
+    icon: 'Layers',
+    category: 'Mastery',
+    points: 300,
+    condition: (s) => ((s.solvedByTopic['DP'] || 0) + (s.solvedByTopic['Graphs'] || 0) + (s.solvedByTopic['Arrays & Strings'] || 0)) >= 1 && ((s.solvedByTopic['Digital Electronics'] || 0) + (s.solvedByTopic['STA & Timing Analysis'] || 0) + (s.solvedByTopic['Embedded C & RTOS'] || 0)) >= 1,
+  },
+  {
+    id: 'streak-14',
+    title: 'Placement Titan',
+    description: 'Maintain a 14-day daily preparation streak.',
+    icon: 'Flame',
+    category: 'Consistency',
+    points: 500,
+    condition: (s) => s.currentStreakDays >= 14,
+  },
 ];
+
+export interface UserLevelInfo {
+  level: number;
+  title: string;
+  currentLevelBaseXp: number;
+  nextLevelXp: number;
+  progressPct: number;
+}
+
+export function getUserLevel(xp: number): UserLevelInfo {
+  if (xp >= 1500) {
+    return { level: 5, title: 'Placement Titan (Tier-1 Ready)', currentLevelBaseXp: 1500, nextLevelXp: 2500, progressPct: Math.min(100, Math.round(((xp - 1500) / 1000) * 100)) };
+  }
+  if (xp >= 900) {
+    return { level: 4, title: 'Interview Competent', currentLevelBaseXp: 900, nextLevelXp: 1500, progressPct: Math.round(((xp - 900) / 600) * 100) };
+  }
+  if (xp >= 450) {
+    return { level: 3, title: 'Algorithm & Silicon Specialist', currentLevelBaseXp: 450, nextLevelXp: 900, progressPct: Math.round(((xp - 450) / 450) * 100) };
+  }
+  if (xp >= 150) {
+    return { level: 2, title: 'Consistent Aspirant', currentLevelBaseXp: 150, nextLevelXp: 450, progressPct: Math.round(((xp - 150) / 300) * 100) };
+  }
+  return { level: 1, title: 'Novice Explorer', currentLevelBaseXp: 0, nextLevelXp: 150, progressPct: Math.round((xp / 150) * 100) };
+}
 
 const ACTIVITY_STORAGE_KEY = 'placement_radar_activity_v1';
 const TIMER_STORAGE_KEY = 'placement_radar_timer_seconds_v1';

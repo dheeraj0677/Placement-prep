@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPrepGuideBySlug, PREP_GUIDES } from '@/lib/guidesData';
+import { getEcePrepGuideBySlug, ECE_PREP_GUIDES } from '@/lib/eceGuidesData';
 import GuideDetailClient from './GuideDetailClient';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const guide = getPrepGuideBySlug(params.slug);
+  const guide = getPrepGuideBySlug(params.slug) || getEcePrepGuideBySlug(params.slug);
   if (!guide) {
     return {
       title: 'Guide Not Found — PlacementPrep Radar',
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       guide.tag,
       'placement prep',
       'interview questions',
+      'hardware roadmap',
       'DSA roadmap',
       'LeetCode problems',
       ...guide.testedCompanies,
@@ -34,13 +36,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return PREP_GUIDES.map((guide) => ({
+  const allGuides = [...PREP_GUIDES, ...ECE_PREP_GUIDES];
+  return allGuides.map((guide) => ({
     slug: guide.slug,
   }));
 }
 
 export default function GuideDetailPage({ params }: Props) {
-  const guide = getPrepGuideBySlug(params.slug);
+  const guide = getPrepGuideBySlug(params.slug) || getEcePrepGuideBySlug(params.slug);
 
   if (!guide) {
     notFound();

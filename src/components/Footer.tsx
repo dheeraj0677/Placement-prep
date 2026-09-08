@@ -93,6 +93,24 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/questions" className="hover:text-violet-600 transition flex items-center gap-1.5 text-violet-600 font-semibold">
+                  <ArrowRight className="w-3 h-3 text-violet-500" />
+                  <span>Question Bank (Curated)</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/study-plan" className="hover:text-cyan-600 transition flex items-center gap-1.5 text-cyan-700 font-medium">
+                  <ArrowRight className="w-3 h-3 text-cyan-600" />
+                  <span>30-Day Placement Plan</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/path-advisor" className="hover:text-violet-600 transition flex items-center gap-1.5">
+                  <ArrowRight className="w-3 h-3 text-slate-400" />
+                  <span>Core vs IT Strategy Advisor</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/bookmarks" className="hover:text-violet-600 transition flex items-center gap-1.5">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Saved Notes & Bookmarks</span>

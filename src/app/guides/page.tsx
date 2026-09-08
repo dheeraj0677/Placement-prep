@@ -13,20 +13,39 @@ import {
   Code2, 
   CheckSquare, 
   CheckCircle2, 
-  Compass 
+  Compass,
+  Cpu,
+  Layers,
+  Code
 } from 'lucide-react';
 import GuideCard from '@/components/GuideCard';
-import { PREP_GUIDES, getAllCategories } from '@/lib/guidesData';
+import { PREP_GUIDES } from '@/lib/guidesData';
+import { ECE_PREP_GUIDES } from '@/lib/eceGuidesData';
+import { useDomain } from '@/lib/DomainContext';
 
 export default function GuidesPage() {
+  const { domain } = useDomain();
+  const [trackFilter, setTrackFilter] = useState<'all' | 'it' | 'ece'>(domain || 'all');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories = getAllCategories();
+  // Active pool of guides
+  const activeGuidesPool = useMemo(() => {
+    if (trackFilter === 'it') return PREP_GUIDES;
+    if (trackFilter === 'ece') return ECE_PREP_GUIDES;
+    return [...PREP_GUIDES, ...ECE_PREP_GUIDES];
+  }, [trackFilter]);
+
+  // Extract categories present in active pool
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    activeGuidesPool.forEach(g => cats.add(g.category));
+    return ['All', ...Array.from(cats)];
+  }, [activeGuidesPool]);
 
   // Filter guides
   const filteredGuides = useMemo(() => {
-    return PREP_GUIDES.filter((guide) => {
+    return activeGuidesPool.filter((guide) => {
       const matchesCategory = selectedCategory === 'All' || guide.category === selectedCategory;
       const matchesSearch = 
         guide.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -35,12 +54,11 @@ export default function GuidesPage() {
         guide.testedCompanies.some(c => c.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [activeGuidesPool, selectedCategory, searchQuery]);
 
   // Aggregate stats
-  const totalGuides = PREP_GUIDES.length;
-  const totalProblems = PREP_GUIDES.reduce((acc, g) => acc + g.problems.length, 0);
-  const totalHours = PREP_GUIDES.reduce((acc, g) => acc + g.estimatedHours, 0);
+  const totalProblems = activeGuidesPool.reduce((acc, g) => acc + g.problems.length, 0);
+  const totalHours = activeGuidesPool.reduce((acc, g) => acc + g.estimatedHours, 0);
 
   return (
     <div className="relative overflow-hidden">
@@ -53,137 +71,160 @@ export default function GuidesPage() {
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold shadow-sm">
             <BookOpen className="w-3.5 h-3.5 text-violet-600" />
-            <span>Curated Placement Preparation Roadmaps</span>
+            <span>Dual-Track Preparation Blueprints</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-            Topic-Wise <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-emerald-600 bg-clip-text text-transparent">Placement Guides</span> & Must-Solve Questions
+            Topic-Wise <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 bg-clip-text text-transparent">Placement Study Guides</span> & Problem Roadmaps
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-            Stop solving random problems without direction. Use curated study roadmaps, core concept blueprints, and must-solve LeetCode/GFG questions tailored for software engineering placements.
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Deep-dive master guides with verified interview questions from LeetCode, GFG, and HDLBits. Covers algorithms, system design, digital logic, STA, Verilog, and embedded firmware.
           </p>
-        </div>
 
-        {/* Live Metrics Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1 bg-white border border-slate-200 shadow-sm">
-            <div className="text-2xl sm:text-3xl font-extrabold text-violet-600">{totalGuides}</div>
-            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">In-Depth Guides</div>
-          </div>
-          <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1 bg-white border border-slate-200 shadow-sm">
-            <div className="text-2xl sm:text-3xl font-extrabold text-fuchsia-600">{totalProblems}+</div>
-            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Must-Solve Problems</div>
-          </div>
-          <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1 bg-white border border-slate-200 shadow-sm">
-            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600">~{totalHours}h</div>
-            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Estimated Study Time</div>
-          </div>
-          <div className="glass-card rounded-xl p-4 sm:p-5 text-center space-y-1 bg-white border border-slate-200 shadow-sm">
-            <div className="text-2xl sm:text-3xl font-extrabold text-purple-600">100%</div>
-            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Direct LeetCode & GFG Links</div>
+          {/* Quick Stats Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs text-slate-600">
+            <div className="flex items-center gap-1.5 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-violet-500" />
+              <span>{PREP_GUIDES.length + ECE_PREP_GUIDES.length} Comprehensive Guides</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-cyan-500" />
+              <span>{totalProblems}+ Curated Problems</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>~{totalHours} Total Guided Study Hours</span>
+            </div>
           </div>
         </div>
 
-        {/* Search & Category Filter Controls */}
-        <div className="space-y-4 max-w-4xl mx-auto">
-          {/* Search Box */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search topics (e.g. Dynamic Programming, Graphs, System Design, Google, Amazon)..."
-              className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-violet-500 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-sm"
-            />
-            {searchQuery && (
+        {/* Filter and Track Control Center */}
+        <div className="glass-card rounded-2xl p-5 border border-slate-200 space-y-4 shadow-sm bg-white">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            
+            {/* Track Switcher */}
+            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200 self-start md:self-auto">
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-500 hover:text-slate-800 bg-slate-100 px-2 py-1 rounded"
+                onClick={() => { setTrackFilter('all'); setSelectedCategory('All'); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  trackFilter === 'all'
+                    ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
               >
-                Clear
+                <Layers className="w-3.5 h-3.5" />
+                <span>All Guides ({PREP_GUIDES.length + ECE_PREP_GUIDES.length})</span>
               </button>
-            )}
+              <button
+                onClick={() => { setTrackFilter('it'); setSelectedCategory('All'); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  trackFilter === 'it'
+                    ? 'bg-violet-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Code className="w-3.5 h-3.5" />
+                <span>Software Track ({PREP_GUIDES.length})</span>
+              </button>
+              <button
+                onClick={() => { setTrackFilter('ece'); setSelectedCategory('All'); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  trackFilter === 'ece'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Cpu className="w-3.5 h-3.5" />
+                <span>Semiconductor Track ({ECE_PREP_GUIDES.length})</span>
+              </button>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search guide by topic, tag, or target company..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:bg-white transition"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md shadow-violet-500/20 border border-violet-500'
-                      : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 shadow-sm'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs pt-2 border-t border-slate-100 scrollbar-none">
+            <div className="flex items-center gap-1 text-slate-400 font-semibold uppercase tracking-wider pr-2 shrink-0">
+              <Filter className="w-3 h-3" />
+              <span>Category:</span>
+            </div>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition ${
+                  selectedCategory === cat
+                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-sm'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
 
         {/* Guides Grid */}
-        {filteredGuides.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-            {filteredGuides.map((guide) => (
-              <GuideCard key={guide.slug} guide={guide} />
-            ))}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs text-slate-500">
+            <span>
+              Showing <strong className="text-slate-900 font-bold">{filteredGuides.length}</strong> of{' '}
+              {activeGuidesPool.length} guides in track
+            </span>
+            {(selectedCategory !== 'All' || searchQuery) && (
+              <button
+                onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
+                className="text-violet-600 hover:underline font-semibold"
+              >
+                Reset filters
+              </button>
+            )}
           </div>
-        ) : (
-          <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-200 bg-white max-w-md mx-auto shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-violet-50 flex items-center justify-center mx-auto text-violet-600">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-lg font-bold text-slate-900">No guides match your search</h3>
-              <p className="text-xs text-slate-500">
-                Try searching for a different keyword or select another category filter above.
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setSelectedCategory('All');
-                setSearchQuery('');
-              }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold transition shadow-md shadow-violet-500/20"
-            >
-              Reset Filters
-            </button>
-          </div>
-        )}
 
-        {/* Quick Links Banner to Companies & Checklists */}
-        <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-1 text-center md:text-left">
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-              Want to see which topics your target company tests?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500">
-              Check real interview frequency radars for Google, Amazon, Microsoft, Flipkart, and more.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/companies"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-semibold text-xs transition shadow-md shadow-violet-500/20"
-            >
-              <Compass className="w-4 h-4" />
-              <span>Explore Company Radars</span>
-            </Link>
-            <Link
-              href="/checklist"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-200 transition"
-            >
-              <CheckSquare className="w-4 h-4 text-violet-600" />
-              <span>My Prep Checklist</span>
-            </Link>
-          </div>
+          {filteredGuides.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides.map((guide) => (
+                <GuideCard key={guide.slug} guide={guide} />
+              ))}
+            </div>
+          ) : (
+            <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-200 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-bold text-slate-900">No study guides found</h3>
+                <p className="text-xs text-slate-500">
+                  Try adjusting your search query or reset the category filter.
+                </p>
+              </div>
+              <button
+                onClick={() => { setSelectedCategory('All'); setSearchQuery(''); setTrackFilter('all'); }}
+                className="px-4 py-2 rounded-lg bg-violet-600 text-white text-xs font-semibold shadow-sm"
+              >
+                Reset All Filters
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

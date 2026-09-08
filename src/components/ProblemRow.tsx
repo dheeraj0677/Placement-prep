@@ -21,9 +21,11 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
     Hard: 'bg-rose-50 text-rose-700 border-rose-200',
   };
 
-  const platformBadges = {
+  const platformBadges: Record<string, string> = {
     LeetCode: 'bg-amber-50 text-amber-800 border-amber-200',
     GeeksforGeeks: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    HDLBits: 'bg-blue-50 text-blue-800 border-blue-200',
+    Edaplayground: 'bg-purple-50 text-purple-800 border-purple-200',
   };
 
   return (
@@ -75,7 +77,7 @@ export default function ProblemRow({ problem, index, isSolved, onToggleSolved }:
             {problem.difficulty}
           </span>
 
-          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border shrink-0 ${platformBadges[problem.platform]}`}>
+          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border shrink-0 ${platformBadges[problem.platform] || 'bg-slate-100 text-slate-700 border-slate-200'}`}>
             {problem.platform}
           </span>
 

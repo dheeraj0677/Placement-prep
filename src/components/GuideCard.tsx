@@ -54,11 +54,13 @@ export default function GuideCard({ guide }: GuideCardProps) {
     Advanced: 'bg-rose-50 text-rose-700 border-rose-200',
   };
 
-  const categoryBadges = {
+  const categoryBadges: Record<string, string> = {
     'DSA': 'bg-purple-50 text-purple-700 border-purple-200',
     'CS Fundamentals': 'bg-violet-50 text-violet-700 border-violet-200',
     'System Design': 'bg-amber-50 text-amber-700 border-amber-200',
     'Soft Skills': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    'VLSI & Hardware': 'bg-blue-50 text-blue-700 border-blue-200',
+    'Embedded Systems': 'bg-teal-50 text-teal-700 border-teal-200',
   };
 
   return (

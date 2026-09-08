@@ -16,33 +16,47 @@ import {
   Zap, 
   HelpCircle,
   BarChart3,
-  CheckSquare
+  CheckSquare,
+  Cpu
 } from 'lucide-react';
 import { CAREER_ROLES } from '@/lib/careerPathsData';
+import { ECE_CAREER_ROLES } from '@/lib/eceCareerPathsData';
 import RoleCard from '@/components/RoleCard';
+import { useDomain } from '@/lib/DomainContext';
 
 export default function CareerPathsPage() {
+  const { domain } = useDomain();
   const [searchQuery, setSearchQuery] = useState('');
+  const [trackFilter, setTrackFilter] = useState<'all' | 'it' | 'ece'>(domain || 'all');
   const [selectedCategory, setSelectedCategory] = useState<'All' | 'Technical' | 'Non-Technical'>('All');
   const [selectedSkillFilter, setSelectedSkillFilter] = useState<string>('All');
+
+  // Combined pool based on track
+  const activeRolesPool = useMemo(() => {
+    if (trackFilter === 'it') return CAREER_ROLES;
+    if (trackFilter === 'ece') return ECE_CAREER_ROLES;
+    return [...CAREER_ROLES, ...ECE_CAREER_ROLES];
+  }, [trackFilter]);
 
   // Popular filter tags
   const popularSkillTags = [
     'All',
     'DSA',
-    'SQL',
+    'Verilog',
+    'Embedded C',
+    'STA',
     'Python',
-    'Aptitude',
-    'Machine Learning',
+    'SQL',
+    'RISC-V',
+    'Op-Amps',
     'Cloud',
-    'Product Sense',
     'Communication',
-    'Excel'
+    'Product Sense'
   ];
 
   // Filter roles based on search query, category, and skill tag
   const filteredRoles = useMemo(() => {
-    return CAREER_ROLES.filter((role) => {
+    return activeRolesPool.filter((role) => {
       // Category filter
       if (selectedCategory !== 'All' && role.category !== selectedCategory) {
         return false;
@@ -73,55 +87,54 @@ export default function CareerPathsPage() {
 
       return true;
     });
-  }, [searchQuery, selectedCategory, selectedSkillFilter]);
+  }, [activeRolesPool, searchQuery, selectedCategory, selectedSkillFilter]);
 
-  const techCount = CAREER_ROLES.filter((r) => r.category === 'Technical').length;
-  const nonTechCount = CAREER_ROLES.filter((r) => r.category === 'Non-Technical').length;
+  const techCount = activeRolesPool.filter((r) => r.category === 'Technical').length;
+  const nonTechCount = activeRolesPool.filter((r) => r.category === 'Non-Technical').length;
 
   return (
-    <div className="min-h-screen py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-      {/* Workshop Event Hero Banner */}
-      <div className="relative rounded-3xl p-6 sm:p-10 lg:p-12 glass-card border border-violet-200 overflow-hidden shadow-sm">
-        {/* Background Ambient Glows */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
+      {/* Header Banner */}
+      <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-r from-violet-900/10 via-purple-900/5 to-cyan-900/10 border border-slate-200 overflow-hidden shadow-sm">
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 rounded-full bg-violet-400/20 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-8 w-64 h-64 rounded-full bg-cyan-400/15 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-3xl space-y-5">
+        <div className="relative space-y-4 max-w-3xl">
           {/* Workshop Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold tracking-wide">
             <Compass className="w-3.5 h-3.5 text-violet-600 animate-spin-slow" />
-            <span>Club Workshop Series</span>
+            <span>Dual-Track Career Compass</span>
             <span className="text-slate-400">•</span>
-            <span className="text-slate-800 font-semibold">Career Compass: Companies, Roles & Skills</span>
+            <span className="text-slate-800 font-semibold">Software & Semiconductor Blueprints</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
-            Discover Your Career Path:{' '}
-            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
-              Technical & Non-Technical Roles
+            Discover Your Ideal Career Path:{' '}
+            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+              Software & Hardware Blueprints
             </span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-            Understand what companies expect across different job profiles, their day-to-day responsibilities, eligibility requirements, and the exact skill sets you need to prepare for internships and campus placements.
+            Understand what companies expect across software engineering (SDE, Data, AI) and core hardware profiles (VLSI, Verification, Physical Design, Embedded C, Firmware), with transparent CTC packages and verified interview rounds.
           </p>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="text-xl sm:text-2xl font-black text-violet-600 font-mono">15+</div>
-              <div className="text-[11px] text-slate-500 font-medium">Job Profiles</div>
+            <div className="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-violet-600 font-mono">{CAREER_ROLES.length + ECE_CAREER_ROLES.length}</div>
+              <div className="text-[11px] text-slate-500 font-medium">Job Blueprints</div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="text-xl sm:text-2xl font-black text-purple-600 font-mono">27+</div>
+            <div className="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-purple-600 font-mono">45+</div>
               <div className="text-[11px] text-slate-500 font-medium">Recruiting Companies</div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="text-xl sm:text-2xl font-black text-emerald-600 font-mono">28</div>
+            <div className="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-cyan-600 font-mono">40+</div>
               <div className="text-[11px] text-slate-500 font-medium">Core Skills Mapped</div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="text-xl sm:text-2xl font-black text-amber-600 font-mono">100%</div>
+            <div className="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-emerald-600 font-mono">100%</div>
               <div className="text-[11px] text-slate-500 font-medium">Free Roadmaps</div>
             </div>
           </div>
@@ -133,16 +146,16 @@ export default function CareerPathsPage() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white text-xs font-bold transition shadow-lg shadow-violet-500/25 active:scale-95 border border-violet-400/30"
             >
               <Sparkles className="w-4 h-4 text-fuchsia-200" />
-              <span>Interactive Skill Gap Analyzer</span>
+              <span>Skill Gap Analyzer</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             <Link
-              href="/companies"
+              href="/path-advisor"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-semibold border border-slate-200 transition shadow-sm active:scale-95"
             >
-              <Building2 className="w-3.5 h-3.5 text-violet-600" />
-              <span>Browse Company Radars</span>
+              <Zap className="w-3.5 h-3.5 text-amber-500" />
+              <span>Core vs IT Advisor</span>
             </Link>
           </div>
         </div>
@@ -150,40 +163,41 @@ export default function CareerPathsPage() {
 
       {/* Interactive Controls & Filters */}
       <div className="space-y-4">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          {/* Category Tabs */}
-          <div className="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 self-start">
+        {/* Track Filter Toggle */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-2 bg-slate-100/80 rounded-2xl border border-slate-200">
+          <div className="flex items-center gap-1">
             <button
-              onClick={() => setSelectedCategory('All')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
-                selectedCategory === 'All'
-                  ? 'bg-violet-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
+              onClick={() => setTrackFilter('all')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
+                trackFilter === 'all'
+                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              All Roles ({CAREER_ROLES.length})
+              <Layers className="w-3.5 h-3.5" />
+              <span>All Tracks ({CAREER_ROLES.length + ECE_CAREER_ROLES.length})</span>
             </button>
             <button
-              onClick={() => setSelectedCategory('Technical')}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition ${
-                selectedCategory === 'Technical'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
+              onClick={() => setTrackFilter('it')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
+                trackFilter === 'it'
+                  ? 'bg-violet-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <Code className="w-3.5 h-3.5" />
-              <span>Technical ({techCount})</span>
+              <span>Software & IT ({CAREER_ROLES.length})</span>
             </button>
             <button
-              onClick={() => setSelectedCategory('Non-Technical')}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition ${
-                selectedCategory === 'Non-Technical'
-                  ? 'bg-purple-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
+              onClick={() => setTrackFilter('ece')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
+                trackFilter === 'ece'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Briefcase className="w-3.5 h-3.5" />
-              <span>Non-Technical ({nonTechCount})</span>
+              <Cpu className="w-3.5 h-3.5" />
+              <span>Semiconductor & ECE ({ECE_CAREER_ROLES.length})</span>
             </button>
           </div>
 
@@ -194,8 +208,8 @@ export default function CareerPathsPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by role, skill (e.g. SQL, Python), company..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition shadow-sm"
+              placeholder="Search by role, skill (e.g. Verilog, Python, STA), company..."
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-500 transition shadow-sm"
             />
             {searchQuery && (
               <button
@@ -217,8 +231,8 @@ export default function CareerPathsPage() {
               onClick={() => setSelectedSkillFilter(tag)}
               className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition ${
                 selectedSkillFilter === tag
-                  ? 'bg-violet-50 text-violet-700 border border-violet-200 font-semibold'
-                  : 'bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-200/70'
+                  ? 'bg-violet-50 text-violet-700 border border-violet-200 font-semibold shadow-sm'
+                  : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
               }`}
             >
               {tag}
@@ -227,168 +241,57 @@ export default function CareerPathsPage() {
         </div>
       </div>
 
-      {/* Role Cards Grid */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-slate-500">
-          <div>
-            Showing <span className="font-bold text-slate-900">{filteredRoles.length}</span> career profiles
-          </div>
-          {(searchQuery || selectedCategory !== 'All' || selectedSkillFilter !== 'All') && (
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All');
-                setSelectedSkillFilter('All');
-              }}
-              className="text-violet-600 hover:text-violet-700 hover:underline font-medium"
-            >
-              Reset all filters
-            </button>
-          )}
-        </div>
-
-        {filteredRoles.length === 0 ? (
-          <div className="glass-card rounded-2xl p-12 text-center space-y-3 border border-slate-200 shadow-sm">
-            <HelpCircle className="w-10 h-10 text-slate-400 mx-auto" />
-            <h3 className="text-lg font-bold text-slate-900">No matching career paths found</h3>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
-              We couldn&apos;t find any roles matching &quot;{searchQuery}&quot;. Try adjusting your keywords or clearing the skill filter.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All');
-                setSelectedSkillFilter('All');
-              }}
-              className="px-4 py-2 rounded-xl bg-violet-600 text-white text-xs font-bold hover:bg-violet-700 transition"
-            >
-              View All 15 Roles
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRoles.map((role) => (
-              <RoleCard key={role.slug} role={role} />
-            ))}
-          </div>
+      {/* Results Header */}
+      <div className="flex items-center justify-between text-xs text-slate-500">
+        <span>
+          Showing <strong className="text-slate-900 font-bold">{filteredRoles.length}</strong> of{' '}
+          {activeRolesPool.length} career paths
+        </span>
+        {(searchQuery || selectedSkillFilter !== 'All') && (
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedSkillFilter('All');
+              setSelectedCategory('All');
+            }}
+            className="text-violet-600 hover:underline font-semibold"
+          >
+            Clear all filters
+          </button>
         )}
       </div>
 
-      {/* Side-by-Side Comparison Section: Technical vs Non-Technical */}
-      <section className="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200 space-y-6 shadow-sm">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold">
-            <Layers className="w-3.5 h-3.5 text-violet-600" />
-            <span>Career Pathways Matrix</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            Technical vs. Non-Technical: What&apos;s the Difference?
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl">
-            A key focus of Career Compass is demystifying what separates engineering tracks from business and consulting roles so you can prepare intentionally.
-          </p>
+      {/* Role Cards Grid */}
+      {filteredRoles.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredRoles.map((role) => (
+            <RoleCard key={role.slug} role={role} />
+          ))}
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
-          {/* Technical Track Card */}
-          <div className="p-6 rounded-2xl bg-emerald-50/40 border border-emerald-200 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-                  <Code className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">Technical Career Track</h3>
-                  <div className="text-[11px] text-emerald-700 font-medium">SDE, Data, AI, Cloud, Cyber</div>
-                </div>
-              </div>
-              <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-200">
-                Code & Systems Focus
-              </span>
-            </div>
-
-            <ul className="space-y-2.5 text-xs text-slate-700">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>Core Skills:</strong> Programming languages (C++, Java, Python), Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, and System Design.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>Interview Process:</strong> Online Coding Assessment (OA) on LeetCode/HackerEarth, 2-3 Live Coding Rounds, System Design, and Behavioral HR.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>Eligibility:</strong> Usually B.Tech / B.E (CSE, IT, ECE common; many firms open to all branches). High emphasis on coding test score over college tier.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>Typical Freshers CTC:</strong> ₹6 - 45+ LPA (Service firms: ₹3.6 - 9 LPA; Product firms: ₹18 - 45+ LPA).</span>
-              </li>
-            </ul>
+      ) : (
+        <div className="glass-card rounded-2xl p-12 text-center space-y-4 border border-slate-200 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+            <Compass className="w-6 h-6" />
           </div>
-
-          {/* Non-Technical Track Card */}
-          <div className="p-6 rounded-2xl bg-purple-50/40 border border-purple-200 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
-                  <Briefcase className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">Non-Technical & Business Track</h3>
-                  <div className="text-[11px] text-purple-700 font-medium">PM, Consulting, Analytics, Sales, Ops</div>
-                </div>
-              </div>
-              <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-purple-100 text-purple-800 border border-purple-200">
-                Strategy & Execution Focus
-              </span>
-            </div>
-
-            <ul className="space-y-2.5 text-xs text-slate-700">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-                <span><strong>Core Skills:</strong> Quantitative aptitude, logical reasoning, structured case analysis (MECE), data interpretation, storytelling, and high EQ communication.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-                <span><strong>Interview Process:</strong> Aptitude Assessment, Group Discussions (GD), Live Case Interviews (Guesstimates, Profitability trees), and Leadership Fit rounds.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-                <span><strong>Eligibility:</strong> Open to ALL branches and degrees (Engineering, BBA, B.Com, Sciences). Prior club leadership, events, and PORs (Positions of Responsibility) count heavily.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-                <span><strong>Typical Freshers CTC:</strong> ₹5 - 32+ LPA (Consulting/APM: ₹12 - 32 LPA; Tech Sales: Base + Uncapped Commissions).</span>
-              </li>
-            </ul>
+          <div className="space-y-1">
+            <h3 className="text-lg font-bold text-slate-900">No career paths matched your criteria</h3>
+            <p className="text-xs text-slate-500">
+              Try adjusting your search query, switching tracks, or clearing your skill filters.
+            </p>
           </div>
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedSkillFilter('All');
+              setSelectedCategory('All');
+              setTrackFilter('all');
+            }}
+            className="px-4 py-2 rounded-lg bg-violet-600 text-white text-xs font-semibold shadow-sm"
+          >
+            Reset Filters
+          </button>
         </div>
-      </section>
-
-      {/* Interactive Tool Teaser Banner */}
-      <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-violet-50 via-purple-50 to-slate-50 border border-violet-200 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-2 text-center sm:text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-100 text-violet-800 text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5 text-violet-600" />
-            <span>Interactive Tool</span>
-          </div>
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-            Which roles do your current skills match?
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-            Select the languages, frameworks, and tools you already know. Our engine calculates your readiness percentage for all 15 career paths and identifies your highest-impact skill gaps.
-          </p>
-        </div>
-
-        <Link
-          href="/skills"
-          className="shrink-0 flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm transition shadow-md shadow-violet-500/20 active:scale-95"
-        >
-          <span>Open Skill Gap Analyzer</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
+      )}
     </div>
   );
 }

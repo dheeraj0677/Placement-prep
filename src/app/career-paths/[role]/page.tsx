@@ -8,6 +8,10 @@ import {
   CareerRole 
 } from '@/lib/careerPathsData';
 import { 
+  ECE_CAREER_ROLES, 
+  getEceCareerRoleBySlug 
+} from '@/lib/eceCareerPathsData';
+import { 
   Code, 
   BarChart3, 
   Database, 
@@ -63,13 +67,14 @@ const ICON_MAP: Record<string, React.ElementType> = {
 };
 
 export async function generateStaticParams() {
-  return CAREER_ROLES.map((role) => ({
+  const allRoles = [...CAREER_ROLES, ...ECE_CAREER_ROLES];
+  return allRoles.map((role) => ({
     role: role.slug,
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const role = getCareerRoleBySlug(params.role);
+  const role = getCareerRoleBySlug(params.role) || getEceCareerRoleBySlug(params.role);
   if (!role) {
     return {
       title: 'Career Role Not Found — PlacementPrep Radar',
@@ -83,7 +88,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function CareerRoleDetailPage({ params }: PageProps) {
-  const role = getCareerRoleBySlug(params.role);
+  const role = getCareerRoleBySlug(params.role) || getEceCareerRoleBySlug(params.role);
 
   if (!role) {
     notFound();

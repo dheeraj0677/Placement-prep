@@ -4,7 +4,9 @@ export type SkillCategory =
   | 'Core CS & Development'
   | 'Aptitude & Analytical'
   | 'Domain & Cloud'
-  | 'Soft Skills & Communication';
+  | 'Soft Skills & Communication'
+  | 'VLSI & Semiconductor'
+  | 'Embedded & Hardware';
 
 export interface SkillItem {
   id: string;
@@ -360,13 +362,15 @@ export interface RoleReadinessScore {
 
 export function calculateRoleReadiness(
   selectedSkillIds: string[],
-  allRoles: { slug: string; title: string; category: 'Technical' | 'Non-Technical'; salaryRange: string }[]
+  allRoles: { slug: string; title: string; category: 'Technical' | 'Non-Technical'; salaryRange: string }[],
+  customSkillsDatabase?: SkillItem[]
 ): RoleReadinessScore[] {
+  const db = customSkillsDatabase || SKILLS_DATABASE;
   const selectedSet = new Set(selectedSkillIds);
 
   return allRoles.map((role) => {
-    // Find all skills associated with this role in SKILLS_DATABASE
-    const roleSkills = SKILLS_DATABASE.filter((skill) =>
+    // Find all skills associated with this role in db
+    const roleSkills = db.filter((skill) =>
       skill.relatedRoles.includes(role.slug)
     );
 
