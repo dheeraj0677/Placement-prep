@@ -132,7 +132,7 @@ export default function QuestionsBankPage() {
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold tracking-wide">
             <Sparkles className="w-3.5 h-3.5 text-violet-600" />
-            <span>Verified Placement Intelligence • 2024–2026 Batch</span>
+            <span>Verified Placement Intelligence • 2025–2026 Batch</span>
           </div>
           
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.15]">

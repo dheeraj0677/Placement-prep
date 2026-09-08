@@ -128,7 +128,7 @@ export default function HomePage() {
               </span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-600">
-                {isEce ? '18 Top Semiconductor & Core Recruiters' : 'Live 2024–2025 Hiring Shift Analysis'}
+                {isEce ? '18 Top Semiconductor & Core Recruiters • 2025–2026' : 'Live 2025–2026 Hiring Shift Analysis'}
               </span>
             </div>
 
@@ -159,7 +159,7 @@ export default function HomePage() {
                 </>
               ) : (
                 <>
-                  We ingest real interview experiences from GeeksforGeeks, AmbitionBox, and LeetCode, classify rounds into deterministic topic frequencies, and generate actionable roadmaps.
+                  We ingest real interview experiences across <strong>GeeksforGeeks, LeetCode, AmbitionBox, and Naukri Code360</strong>, classify rounds into deterministic topic frequencies, and generate actionable roadmaps for the <strong>2025–2026</strong> placement season.
                 </>
               )}
             </p>

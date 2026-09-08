@@ -79,7 +79,7 @@ export default function GuidesPage() {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Deep-dive master guides with verified interview questions from LeetCode, GFG, and HDLBits. Covers algorithms, system design, digital logic, STA, Verilog, and embedded firmware.
+            Deep-dive master guides with verified interview questions across <strong>LeetCode, GeeksforGeeks, AmbitionBox, Naukri Code360, and HDLBits</strong>. Covers algorithms, system design, digital logic, STA, Verilog, and embedded firmware.
           </p>
 
           {/* Quick Stats Bar */}

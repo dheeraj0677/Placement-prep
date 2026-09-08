@@ -25,8 +25,16 @@ export default function Footer() {
             </div>
             
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
-              Transforming unstructured tech interview experiences from GeeksforGeeks & LeetCode into data-driven trend radars, must-solve preparation roadmaps, and Career Compass workshop blueprints.
+              Transforming unstructured interview experiences across <strong>GeeksforGeeks, LeetCode, AmbitionBox, Naukri Code360, and HDLBits</strong> into data-driven trend radars, must-solve preparation roadmaps, and Career Compass workshop blueprints.
             </p>
+            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sources:</span>
+              <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-2xs">GeeksforGeeks</span>
+              <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-2xs">LeetCode</span>
+              <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-2xs">AmbitionBox</span>
+              <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-2xs">Naukri Code360</span>
+              <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-2xs">HDLBits</span>
+            </div>
           </div>
 
           {/* Quick Links Column */}
@@ -136,7 +144,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} PlacementPrep Radar. Built for ambitious software engineering & tech candidates.</p>
+          <p>© {new Date().getFullYear()} PlacementPrep Radar • Verified for 2025–2026 Batch Placements.</p>
           <div className="flex items-center gap-1.5 text-slate-600">
             <span>Engineered for peak placement performance</span>
             <Sparkles className="w-3.5 h-3.5 text-violet-500" />
