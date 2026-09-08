@@ -9,47 +9,33 @@ import Link from 'next/link';
 export default function AuthButton() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
 
   useEffect(() => {
-    async function getUser() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
-      } catch (err) {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    }
+    const supabase = createClient();
 
-    getUser();
+    // 1. Check local session immediately
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    }).catch(() => {
+      setUser(null);
+      setLoading(false);
+    });
 
+    // 2. Subscribe to auth changes (sign in, sign out, token refresh)
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      setLoading(false);
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [supabase]);
-
-  const handleSignInWithGoogle = async () => {
-    try {
-      const origin = window.location.origin;
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${origin}/auth/callback`,
-        },
-      });
-    } catch (err) {
-      console.error('Sign in error:', err);
-    }
-  };
+  }, []);
 
   const handleSignOut = async () => {
     try {
+      const supabase = createClient();
       await supabase.auth.signOut();
       setUser(null);
       window.location.reload();

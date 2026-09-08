@@ -20,53 +20,31 @@ export async function updateSession(request: NextRequest) {
     supabaseKey,
     {
       cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value;
+        getAll() {
+          return request.cookies.getAll();
         },
-        set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          });
+        setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-        },
-        remove(name: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value: '',
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value: '',
-            ...options,
-          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set({
+              name,
+              value,
+              ...options,
+            })
+          );
         },
       },
     }
   );
 
   try {
-    // Fast timeout so network delay never blocks page loading
-    await Promise.race([
-      supabase.auth.getUser(),
-      new Promise((resolve) => setTimeout(resolve, 800)),
-    ]);
+    // Refresh the user session if needed
+    await supabase.auth.getUser();
   } catch (e) {
     // Fail gracefully without blocking request pipeline
   }
