@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BranchSelector from "@/components/BranchSelector";
 import { DomainProvider } from "@/lib/DomainContext";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -38,7 +37,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col antialiased selection:bg-violet-500/20 selection:text-violet-900">
         <DomainProvider>
-          <BranchSelector />
           <Navbar />
           <main className="flex-1 w-full">{children}</main>
           <Footer />

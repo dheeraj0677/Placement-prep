@@ -34,11 +34,6 @@ export function DomainProvider({ children }: { children: React.ReactNode }) {
       if (storedDomain === 'it' || storedDomain === 'ece') {
         setDomainState(storedDomain);
       }
-
-      if (!onboarded) {
-        setIsFirstVisit(true);
-        setIsBranchModalOpen(true);
-      }
     } catch {
       // Ignore localStorage errors in SSR/incognito
     }

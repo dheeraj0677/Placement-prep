@@ -110,41 +110,7 @@ export default function HomePage() {
       }`} />
 
       {/* Hero Section */}
-      <section className="pt-8 sm:pt-16 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        
-        {/* Track Selector Pill Header */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm gap-1">
-            <span className="text-[11px] font-bold text-slate-400 px-3 uppercase tracking-wider">
-              Selected Track:
-            </span>
-            <button
-              onClick={() => { setDomain('it'); setActiveCategoryFilter('All'); }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition duration-200 ${
-                !isEce
-                  ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md shadow-violet-500/20'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
-            >
-              <Code className="w-4 h-4" />
-              <span>Software & IT Radar</span>
-            </button>
-            <button
-              onClick={() => { setDomain('ece'); setActiveCategoryFilter('All'); }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition duration-200 ${
-                isEce
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md shadow-blue-500/20'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
-            >
-              <Cpu className="w-4 h-4" />
-              <span>ECE & Semiconductor Radar</span>
-              <span className="px-1.5 py-0.2 text-[9px] uppercase tracking-wider font-extrabold bg-white/20 text-white rounded">
-                NEW
-              </span>
-            </button>
-          </div>
-        </div>
+      <section className="pt-6 sm:pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
