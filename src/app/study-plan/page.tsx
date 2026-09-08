@@ -174,265 +174,263 @@ export default function StudyPlanPage() {
   const completionPercentage = Math.round((completedDays.length / 30) * 100);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto space-y-8">
-        
-        {/* Header Breadcrumbs */}
-        <div className="flex items-center justify-between text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="hover:text-slate-200 transition">Home</Link>
-            <span>/</span>
-            <span className="text-violet-400 font-medium">30-Day Placement Plan</span>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+      
+      {/* Header Breadcrumbs */}
+      <div className="flex items-center justify-between text-xs text-slate-500">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="hover:text-slate-900 transition">Home</Link>
+          <span>/</span>
+          <span className="text-violet-600 font-semibold">30-Day Placement Plan</span>
+        </div>
+
+        <button
+          onClick={() => window.print()}
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition text-xs shadow-sm font-medium"
+        >
+          <Printer className="w-3.5 h-3.5" />
+          <span>Print / Save PDF</span>
+        </button>
+      </div>
+
+      {/* Hero Banner (Clean White Card) */}
+      <div className="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200 bg-white shadow-sm relative overflow-hidden space-y-4">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-72 h-72 rounded-full bg-violet-400/10 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-10 w-72 h-72 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold tracking-wide">
+            <Calendar className="w-3.5 h-3.5 text-violet-600" />
+            <span>Day-by-Day Milestone Syllabus</span>
           </div>
 
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.15]">
+            30-Day Campus Placement <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-600">Battle Plan</span>
+          </h1>
+
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+            Eliminate preparation anxiety with a structured, step-by-step daily syllabus. Every single day gives you exact topics to study, curated problem sets to solve, and verification milestones.
+          </p>
+
+          {/* Overall Progress Gauge Bar */}
+          <div className="pt-3 space-y-2">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="font-bold text-slate-700">
+                Sprint Completion: {completedDays.length} of 30 Days Finished
+              </span>
+              <span className="font-black text-violet-600">
+                {completionPercentage}% Complete
+              </span>
+            </div>
+
+            <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden p-0.5 border border-slate-200 shadow-inner">
+              <div 
+                className="bg-gradient-to-r from-violet-600 via-cyan-500 to-emerald-500 h-full rounded-full transition-all duration-500 shadow-sm"
+                style={{ width: `${completionPercentage}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Track Switcher & Week Filter Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        {/* Branch Track Switcher */}
+        <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200 shadow-inner">
           <button
-            onClick={() => window.print()}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition text-xs"
+            onClick={() => {
+              setSelectedTrack('ece');
+              setDomain('ece');
+            }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${
+              selectedTrack === 'ece'
+                ? 'bg-cyan-600 text-white shadow-sm'
+                : 'text-slate-600 hover:text-cyan-700'
+            }`}
           >
-            <Printer className="w-3.5 h-3.5" />
-            <span>Print / Save PDF</span>
+            <Cpu className="w-4 h-4" />
+            Semiconductor & ECE Track
+          </button>
+
+          <button
+            onClick={() => {
+              setSelectedTrack('it');
+              setDomain('it');
+            }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${
+              selectedTrack === 'it'
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'text-slate-600 hover:text-indigo-700'
+            }`}
+          >
+            <Code2 className="w-4 h-4" />
+            Software & IT Track
           </button>
         </div>
 
-        {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 p-8 sm:p-10 shadow-2xl">
-          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-1/3 -mb-10 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Reset button */}
+        {completedDays.length > 0 && (
+          <button
+            onClick={resetProgress}
+            className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-rose-600 transition self-start sm:self-auto font-medium"
+          >
+            <RotateCcw className="w-3 h-3" />
+            <span>Reset Plan Progress</span>
+          </button>
+        )}
+      </div>
 
-          <div className="relative z-10 max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium">
-              <Calendar className="w-3.5 h-3.5" />
-              Day-by-Day Milestone Roadmap
-            </div>
+      {/* Week Tabs */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-200">
+        <span className="text-xs text-slate-500 whitespace-nowrap pl-1 pr-1 font-medium">Filter Week:</span>
+        {[
+          { id: 0, label: 'All 30 Days' },
+          { id: 1, label: 'Week 1: Core Fundamentals' },
+          { id: 2, label: 'Week 2: Advanced Technical' },
+          { id: 3, label: 'Week 3: Systems & Protocols' },
+          { id: 4, label: 'Week 4: Radar Mocks & HR' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setSelectedWeek(tab.id)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition border ${
+              selectedWeek === tab.id
+                ? 'bg-violet-600 text-white border-violet-600 shadow-sm'
+                : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border-slate-200'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-              30-Day Campus Placement <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-cyan-400 to-indigo-400">Battle Plan</span>
-            </h1>
+      {/* Day Cards Timeline */}
+      <div className="space-y-4">
+        {filteredDays.map((item) => {
+          const isDone = completedDays.includes(item.day);
+          const isEce = selectedTrack === 'ece';
 
-            <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-              Eliminate preparation anxiety with a structured, step-by-step daily syllabus. Every single day gives you exact topics to study, curated problem sets to solve, and verification milestones.
-            </p>
-
-            {/* Overall Progress Gauge Bar */}
-            <div className="pt-3 space-y-2">
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="font-semibold text-slate-300">
-                  Sprint Completion: {completedDays.length} of 30 Days Finished
-                </span>
-                <span className="font-bold text-violet-400">
-                  {completionPercentage}% Complete
-                </span>
-              </div>
-
-              <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden p-0.5 border border-slate-700">
-                <div 
-                  className="bg-gradient-to-r from-violet-500 via-cyan-500 to-emerald-400 h-full rounded-full transition-all duration-500"
-                  style={{ width: `${completionPercentage}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Track Switcher & Week Filter Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-          {/* Branch Track Switcher */}
-          <div className="flex items-center gap-2 p-1 bg-slate-900 rounded-2xl border border-slate-800">
-            <button
-              onClick={() => {
-                setSelectedTrack('ece');
-                setDomain('ece');
-              }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${
-                selectedTrack === 'ece'
-                  ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-600/30'
-                  : 'text-slate-400 hover:text-cyan-400'
+          return (
+            <div
+              key={item.day}
+              className={`rounded-2xl border transition-all duration-200 bg-white ${
+                isDone
+                  ? 'border-slate-200 opacity-75 bg-slate-50/50'
+                  : 'border-slate-200 hover:border-slate-300 shadow-sm'
               }`}
             >
-              <Cpu className="w-4 h-4 text-cyan-300" />
-              Semiconductor & ECE Track
-            </button>
+              <div className="p-5 sm:p-6 space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                  {/* Checkbox & Day Header */}
+                  <div className="flex items-start gap-3.5 flex-1">
+                    <button
+                      onClick={() => toggleDayCompletion(item.day)}
+                      className={`mt-0.5 w-6 h-6 rounded-lg border flex items-center justify-center transition shrink-0 ${
+                        isDone
+                          ? 'bg-emerald-500 border-emerald-500 text-white'
+                          : 'bg-white border-slate-300 text-transparent hover:border-violet-500'
+                      }`}
+                      title={isDone ? 'Mark day incomplete' : 'Mark day completed'}
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                    </button>
 
-            <button
-              onClick={() => {
-                setSelectedTrack('it');
-                setDomain('it');
-              }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${
-                selectedTrack === 'it'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-indigo-400'
-              }`}
-            >
-              <Code2 className="w-4 h-4 text-indigo-300" />
-              Software & IT Track
-            </button>
-          </div>
-
-          {/* Reset button */}
-          {completedDays.length > 0 && (
-            <button
-              onClick={resetProgress}
-              className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-rose-400 transition self-start sm:self-auto"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>Reset Plan Progress</span>
-            </button>
-          )}
-        </div>
-
-        {/* Week Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-800">
-          <span className="text-xs text-slate-500 whitespace-nowrap pl-1 pr-2">Filter Week:</span>
-          {[
-            { id: 0, label: 'All 30 Days' },
-            { id: 1, label: 'Week 1: Core Fundamentals' },
-            { id: 2, label: 'Week 2: Advanced Technical' },
-            { id: 3, label: 'Week 3: Systems & Protocols' },
-            { id: 4, label: 'Week 4: Radar Mocks & HR' },
-          ].map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedWeek(tab.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition border ${
-                selectedWeek === tab.id
-                  ? 'bg-violet-600 text-white border-violet-500 shadow-sm'
-                  : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border-slate-800'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Day Cards Timeline */}
-        <div className="space-y-4">
-          {filteredDays.map((item) => {
-            const isDone = completedDays.includes(item.day);
-            const isEce = selectedTrack === 'ece';
-
-            return (
-              <div
-                key={item.day}
-                className={`rounded-2xl border transition-all duration-200 ${
-                  isDone
-                    ? 'bg-slate-900/40 border-slate-800/60 opacity-80'
-                    : 'bg-slate-900/80 border-slate-800 hover:border-slate-700 shadow-md'
-                }`}
-              >
-                <div className="p-5 sm:p-6 space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    {/* Checkbox & Day Header */}
-                    <div className="flex items-start gap-3.5 flex-1">
-                      <button
-                        onClick={() => toggleDayCompletion(item.day)}
-                        className={`mt-0.5 w-6 h-6 rounded-lg border flex items-center justify-center transition shrink-0 ${
-                          isDone
-                            ? 'bg-emerald-500 border-emerald-500 text-white'
-                            : 'bg-slate-800 border-slate-700 text-transparent hover:border-violet-500'
-                        }`}
-                        title={isDone ? 'Mark day incomplete' : 'Mark day completed'}
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-white" />
-                      </button>
-
-                      <div className="space-y-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold ${
-                            isDone 
-                              ? 'bg-slate-800 text-slate-400' 
-                              : isEce
-                              ? 'bg-cyan-500/10 border border-cyan-500/20 text-cyan-300'
-                              : 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300'
-                          }`}>
-                            Day {item.day} • Week {item.week}
-                          </span>
-
-                          <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-300 border border-slate-700">
-                            {item.focusTopic}
-                          </span>
-
-                          <span className="flex items-center gap-1 text-[11px] text-slate-400">
-                            <Clock className="w-3 h-3 text-slate-500" />
-                            ~{item.estimatedHours} Hours
-                          </span>
-                        </div>
-
-                        <h3 className={`text-base sm:text-lg font-bold transition ${
-                          isDone ? 'line-through text-slate-400' : 'text-white'
+                    <div className="space-y-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold ${
+                          isDone 
+                            ? 'bg-slate-100 text-slate-500' 
+                            : isEce
+                            ? 'bg-cyan-50 border border-cyan-200 text-cyan-800'
+                            : 'bg-violet-50 border border-violet-200 text-violet-800'
                         }`}>
-                          {item.title}
-                        </h3>
-                      </div>
-                    </div>
+                          Day {item.day} • Week {item.week}
+                        </span>
 
-                    {/* Status indicator */}
-                    {isDone && (
-                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shrink-0">
-                        Completed
-                      </span>
+                        <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                          {item.focusTopic}
+                        </span>
+
+                        <span className="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+                          <Clock className="w-3 h-3 text-slate-400" />
+                          ~{item.estimatedHours} Hours
+                        </span>
+                      </div>
+
+                      <h3 className={`text-base sm:text-lg font-bold transition ${
+                        isDone ? 'line-through text-slate-400' : 'text-slate-900'
+                      }`}>
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Status indicator */}
+                  {isDone && (
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold shrink-0">
+                      Completed
+                    </span>
+                  )}
+                </div>
+
+                {/* Daily Tasks Checklist */}
+                <div className="pl-9 space-y-2">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    Target Action Items for Today:
+                  </span>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-700">
+                    {item.practiceTasks.map((task, idx) => (
+                      <li key={idx} className="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                        <span className="text-violet-600 font-bold mt-0.5">•</span>
+                        <span className={isDone ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}>{task}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Resource Links Bar */}
+                <div className="pl-9 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="flex flex-wrap items-center gap-4">
+                    {item.guideSlug && (
+                      <Link
+                        href={`/guides/${item.guideSlug}`}
+                        className="inline-flex items-center gap-1.5 text-violet-700 hover:text-violet-800 font-semibold transition"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span>Study Blueprint: {item.guideTitle}</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    )}
+
+                    {item.questionQuery && (
+                      <Link
+                        href={`/questions?q=${encodeURIComponent(item.questionQuery)}`}
+                        className="inline-flex items-center gap-1.5 text-cyan-700 hover:text-cyan-800 font-semibold transition"
+                      >
+                        <HelpCircle className="w-3.5 h-3.5" />
+                        <span>Solve {item.questionQuery} in Question Bank</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </Link>
                     )}
                   </div>
 
-                  {/* Daily Tasks Checklist */}
-                  <div className="pl-9 space-y-2">
-                    <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                      Target Action Items for Today:
-                    </span>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
-                      {item.practiceTasks.map((task, idx) => (
-                        <li key={idx} className="flex items-start gap-2 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-                          <span className="text-violet-400 font-bold mt-0.5">•</span>
-                          <span className={isDone ? 'line-through text-slate-500' : 'text-slate-300'}>{task}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Resource Links Bar */}
-                  <div className="pl-9 pt-2 border-t border-slate-800/60 flex flex-wrap items-center justify-between gap-3 text-xs">
-                    <div className="flex flex-wrap items-center gap-4">
-                      {item.guideSlug && (
-                        <Link
-                          href={`/guides/${item.guideSlug}`}
-                          className="inline-flex items-center gap-1.5 text-violet-400 hover:text-violet-300 font-medium transition"
-                        >
-                          <BookOpen className="w-3.5 h-3.5" />
-                          <span>Study Blueprint: {item.guideTitle}</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </Link>
-                      )}
-
-                      {item.questionQuery && (
-                        <Link
-                          href={`/questions?q=${encodeURIComponent(item.questionQuery)}`}
-                          className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-medium transition"
-                        >
-                          <HelpCircle className="w-3.5 h-3.5" />
-                          <span>Solve {item.questionQuery} in Question Bank</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </Link>
-                      )}
-                    </div>
-
-                    <button
-                      onClick={() => toggleDayCompletion(item.day)}
-                      className={`text-xs font-semibold px-3 py-1 rounded-lg transition ${
-                        isDone
-                          ? 'text-slate-400 hover:text-slate-200'
-                          : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
-                      }`}
-                    >
-                      {isDone ? 'Mark Incomplete' : 'Mark Day Done'}
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => toggleDayCompletion(item.day)}
+                    className={`text-xs font-semibold px-3 py-1 rounded-lg transition ${
+                      isDone
+                        ? 'text-slate-500 hover:text-slate-700'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200'
+                    }`}
+                  >
+                    {isDone ? 'Mark Incomplete' : 'Mark Day Done'}
+                  </button>
                 </div>
               </div>
-            );
-          })}
-        </div>
-
+            </div>
+          );
+        })}
       </div>
+
     </div>
   );
 }
